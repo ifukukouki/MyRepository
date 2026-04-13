@@ -16,6 +16,7 @@ int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	SetDrawScreen(DX_SCREEN_BACK);	// 画面のちらつきをなくす
 
+
 	// ゲームメインループ
 	while (ProcessMessage() != -1)
 	{
