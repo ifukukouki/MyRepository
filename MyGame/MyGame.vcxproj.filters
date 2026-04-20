@@ -22,6 +22,9 @@
     <Filter Include="ソース ファイル\Game\Map">
       <UniqueIdentifier>{54533fd8-5463-4ee1-af89-60ab19f04419}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\Player">
+      <UniqueIdentifier>{a9c0805d-7be6-4392-8e7a-7c3e653819cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
