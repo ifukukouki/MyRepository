@@ -106,7 +106,7 @@ bool IsEndFadeIn()
 }
 
 //フェードアウトが終了しているか
-bool IsEndFadeout()
+bool IsEndFadeOut()
 {
 	if (g_fade.m_state == FADE_OUT)
 		return false;

@@ -1,7 +1,13 @@
-#include <DxLib.h>
 
-#define SCREEN_SIZE_X (1920.0f)
-#define SCREEN_SIZE_Y (1080.0f)
+#include <DxLib.h>
+#include "Game/Scene/SceneManager.h"
+#include "Lib/input.h"
+
+#include "Game/Map/Map.h"	// テスト用
+
+
+#define SCREEN_SIZE_X (1280.0f)
+#define SCREEN_SIZE_Y (720.0f)
 
 // main関数の代わり
 int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -16,6 +22,12 @@ int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	SetDrawScreen(DX_SCREEN_BACK);	// 画面のちらつきをなくす
 
+	// シーンの初期化
+	SceneManager scene;
+
+	Map map;	// テスト用
+	map.InitMap();	// テスト用
+	map.LoadMap();	// テスト用
 
 	// ゲームメインループ
 	while (ProcessMessage() != -1)
@@ -28,6 +40,9 @@ int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		// ゲーム本体の命令はこれより下に書く
 
+		InputKey::UpdateKey();
+
+		map.DrawMap();	// テスト用
 
 
 		// ゲーム本体の命令はこれより上に書く
@@ -36,6 +51,8 @@ int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		ScreenFlip();
 
 	}
+
+	map.FinMap();	// テスト用
 
 	DxLib_End();					// ＤＸライブラリ使用の終了処理
 

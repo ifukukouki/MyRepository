@@ -14,5 +14,5 @@ void RequestFadeOut();
 //フェードインが終了しているか
 bool IsEndFadeIn();
 //フェードアウトが終了しているか
-bool IsEndFadeout();
+bool IsEndFadeOut();
 

@@ -1,5 +1,4 @@
 
-#include <DxLib.h>
 #include "Map.h"
 
 #define MAP_CHIP_X_NUM	(12)	//マップチップ横の数
@@ -51,7 +50,7 @@ const int MAP_CHIP_SIZE_Y = (32);
 
 // マップチップ画像読み込み
 // ※画像の種類を引数で変えられるようにするとよい
-void LoadMap()
+void Map::LoadMap()
 {
 	// 元画像を読み込む
 	int src_handle = LoadGraph(MAP_CHIP_IMG_PATH);
@@ -81,18 +80,24 @@ void LoadMap()
 			{
 				// 草の画像の切り抜き開始位置を設定する
 				// ★ココを考える
+				start_x = 32;
+				start_y = 0;
 			}
 			// 海のマップチップ
 			else if (mapChipData[y_index][x_index] == MAP_CHIP_SEA)
 			{
 				// 海の画像の切り抜き開始位置を設定する
 				// ★ココを考える
+				start_x = 0;
+				start_y = 32;
 			}
 			// ブロックのマップチップ
 			else if (mapChipData[y_index][x_index] == MAP_CHIP_BLOCK)
 			{
 				// ブロックの画像の切り抜き開始位置を設定する
 				// ★ココを考える
+				start_x = 32;
+				start_y = 32;
 			}
 
 			MapChip* map_chip = &mapChip[y_index][x_index];
@@ -116,8 +121,9 @@ void LoadMap()
 	DeleteGraph(src_handle);
 }
 
+
 // マップ初期化
-void InitMap()
+void Map::InitMap()
 {
 	// マップチップをすべてゼロで初期化
 	for (int y_index = 0; y_index < MAP_CHIP_Y_NUM; y_index++)
@@ -132,13 +138,9 @@ void InitMap()
 	}
 }
 
-// マップ通常処理
-void StepMap()
-{
-}
 
 // マップ描画処理
-void DrawMap()
+void Map::DrawMap()
 {
 	// マップチップを描画
 	for (int y_index = 0; y_index < MAP_CHIP_Y_NUM; y_index++)
@@ -149,13 +151,15 @@ void DrawMap()
 			if (mapChip[y_index][x_index].isDraw)
 			{
 				// ★ココを考える
+				DrawGraph(mapChip[y_index][x_index].x, mapChip[y_index][x_index].y, mapChip[y_index][x_index].handle, true);
 			}
 		}
 	}
 }
 
+
 // マップ後処理
-void FinMap()
+void Map::FinMap()
 {
 	// すべてのマップチップ画像を削除する
 	for (int y_index = 0; y_index < MAP_CHIP_Y_NUM; y_index++)
