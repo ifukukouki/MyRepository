@@ -7,7 +7,7 @@
 
 
 #define SCREEN_SIZE_X (1280.0f)
-#define SCREEN_SIZE_Y (720.0f)
+#define SCREEN_SIZE_Y (640.0f)
 
 // mainä÷êîÇÃë„ÇÌÇË
 int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
