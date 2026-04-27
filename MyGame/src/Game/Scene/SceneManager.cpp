@@ -10,7 +10,7 @@
 SceneManager::SceneManager()
 {
 	// 最初のシーンを設定
-	m_sceneID = TITLE;	// 提出するときはTITLEに変更する
+	m_sceneID = GAME;	// 提出するときはTITLEに変更する
 	// 音の初期化
 	// 変数名を作って 変数名.Init() みたいな手間が省けるのがstaticクラスの便利なところ
 	Sound::Init();

@@ -106,6 +106,7 @@ void Title::Draw()
 	case Title::ENDWAIT:
 		DrawRotaGraph(1280 / 2, 720 / 2, 1.0, 0.0, m_hndl, TRUE);
 		DrawFormatString(585, 480, GetColor(255, 255, 255), "Press 'Enter'");
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "ƒ^ƒCƒgƒ‹");
 		break;
 	}
 }

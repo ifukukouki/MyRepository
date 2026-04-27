@@ -104,7 +104,8 @@ void Result::Draw()
 	case Result::MAIN:
 	case Result::ENDWAIT:
 		DrawRotaGraph(1280 / 2, 720 / 2, 1.0, 0.0, m_hndl, TRUE);
-		DrawFormatString(585, 410, GetColor(0, 0, 0), "Press 'Enter'");
+		DrawFormatString(585, 480, GetColor(255, 255, 255), "Press 'Enter'");
+		DrawFormatString(0, 0, GetColor(255, 255, 255), "ƒŠƒUƒ‹ƒg");
 		break;
 	}
 }

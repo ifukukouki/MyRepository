@@ -25,9 +25,6 @@ int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// シーンの初期化
 	SceneManager scene;
 
-	Map map;	// テスト用
-	map.InitMap();	// テスト用
-	map.LoadMap();	// テスト用
 
 	// ゲームメインループ
 	while (ProcessMessage() != -1)
@@ -42,8 +39,10 @@ int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		InputKey::UpdateKey();
 
-		map.DrawMap();	// テスト用
+		scene.Loop();
 
+
+		scene.Draw();
 
 		// ゲーム本体の命令はこれより上に書く
 
@@ -52,7 +51,6 @@ int  WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	}
 
-	map.FinMap();	// テスト用
 
 	DxLib_End();					// ＤＸライブラリ使用の終了処理
 

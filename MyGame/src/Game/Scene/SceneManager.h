@@ -13,8 +13,7 @@ private:
 	enum tagSCENE
 	{
 		TITLE,	// タイトル画面
-		SELECT,	// セレクト画面
-		GAME,	// 1人プレイモード
+		GAME,	// プレイ画面
 		RESULT,	// リザルト画面
 	};
 

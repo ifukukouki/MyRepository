@@ -5,13 +5,7 @@
 #include "../../Lib/collision.h"
 
 
-//定義関連-----------------------------
-#define END_WAIT (60)	//プレイヤーが死んだ後の待ち時間
-//-------------------------------------
 
-static const char BOSS_MODEL_PATH[] = "data/model/enemy/boss.mv1";		// bossモデル
-static const char ENEMY_MODEL_PATH[] = "data/model/enemy/enemy.mv1";	// enemyモデル
-static const char STRONGENEMY_MODEL_PATH[] = "data/model/enemy/strongenemy.mv1";	// strongenemyモデル
 
 //--------------------------------
 // コンストラクタ
@@ -106,6 +100,7 @@ int Play::Loop()
 void Play::Draw()
 {
 	m_map.DrawMap();
+	m_player.Draw();
 }
 
 
@@ -115,6 +110,7 @@ void Play::Draw()
 void Play::Init()
 {
 	m_map.InitMap();
+	m_player.Init();
 }
 
 
@@ -124,6 +120,7 @@ void Play::Init()
 void Play::Load()
 {
 	m_map.LoadMap();
+	m_player.Load();
 }
 
 
@@ -132,7 +129,7 @@ void Play::Load()
 //--------------------------------
 void Play::Step()
 {
-	
+	m_player.Step();
 }
 
 
@@ -142,5 +139,6 @@ void Play::Step()
 void Play::Exit()
 {
 	m_map.FinMap();
+	m_player.Exit();
 }
 

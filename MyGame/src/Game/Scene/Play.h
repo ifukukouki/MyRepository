@@ -2,7 +2,7 @@
 
 #include <DxLib.h>
 #include "../Map/Map.h"
-
+#include "../Player/Player.h"
 
 
 // ゲーム本編を管理するクラス
@@ -22,7 +22,8 @@ private:
 
 	tagSCENE m_state;		// 現在の状態遷移
 
-	Map m_map;
+	Map m_map;				// マップ
+	Player m_player;		// プレイヤー
 
 public:
 	// コンストラクタ・デストラクタ
