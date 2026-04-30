@@ -13,28 +13,28 @@ static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
 #define PLAYER_WALK_SPEED	(2.0f)
 
 // 各アニメの画像数
-#define WAIT_ANIME_IMG_NUM	(4)		// 待機アニメ
-#define WALK_ANIME_ING_NUM	(12)	// 歩きアニメ
+#define WAIT_ANIME_IMG_NUM	(1)		// 待機アニメ
+#define WALK_ANIME_ING_NUM	(3)		// 歩きアニメ
 
 // 待機アニメ画像
-#define WAIT_ANIME_IMG_0	"data/Player/Neko_Base_01.png"
-#define WAIT_ANIME_IMG_1	"data/Player/Neko_Base_04.png"
-#define WAIT_ANIME_IMG_2	"data/Player/Neko_Base_07.png"
-#define WAIT_ANIME_IMG_3	"data/Player/Neko_Base_10.png"
+#define WAIT_ANIME_IMG_0	"data/Player/Neko_Base_01.png"	// 正面
+#define WAIT_ANIME_IMG_1	"data/Player/Neko_Base_04.png"	// 左
+#define WAIT_ANIME_IMG_2	"data/Player/Neko_Base_07.png"	// 右
+#define WAIT_ANIME_IMG_3	"data/Player/Neko_Base_10.png"	// 後ろ
 
 // 歩きアニメ画像
-#define WALK_ANIME_IMG_0	"data/Player/Neko_Base_00.png"
-#define WALK_ANIME_IMG_1	"data/Player/Neko_Base_01.png"
-#define WALK_ANIME_IMG_2	"data/Player/Neko_Base_02.png"
-#define WALK_ANIME_IMG_3	"data/Player/Neko_Base_03.png"
-#define WALK_ANIME_IMG_4	"data/Player/Neko_Base_04.png"
-#define WALK_ANIME_IMG_5	"data/Player/Neko_Base_05.png"
-#define WALK_ANIME_IMG_6	"data/Player/Neko_Base_06.png"
-#define WALK_ANIME_IMG_7	"data/Player/Neko_Base_07.png"
-#define WALK_ANIME_IMG_8	"data/Player/Neko_Base_08.png"
-#define WALK_ANIME_IMG_9	"data/Player/Neko_Base_09.png"
-#define WALK_ANIME_IMG_10	"data/Player/Neko_Base_10.png"
-#define WALK_ANIME_IMG_11	"data/Player/Neko_Base_11.png"
+#define WALK_ANIME_IMG_0	"data/Player/Neko_Base_00.png"	// 正面1
+#define WALK_ANIME_IMG_1	"data/Player/Neko_Base_01.png"	// 正面2
+#define WALK_ANIME_IMG_2	"data/Player/Neko_Base_02.png"	// 正面3
+#define WALK_ANIME_IMG_3	"data/Player/Neko_Base_03.png"	// 左1
+#define WALK_ANIME_IMG_4	"data/Player/Neko_Base_04.png"	// 左2
+#define WALK_ANIME_IMG_5	"data/Player/Neko_Base_05.png"	// 左3
+#define WALK_ANIME_IMG_6	"data/Player/Neko_Base_06.png"	// 右1
+#define WALK_ANIME_IMG_7	"data/Player/Neko_Base_07.png"	// 右2
+#define WALK_ANIME_IMG_8	"data/Player/Neko_Base_08.png"	// 右3
+#define WALK_ANIME_IMG_9	"data/Player/Neko_Base_09.png"	// 後ろ1
+#define WALK_ANIME_IMG_10	"data/Player/Neko_Base_10.png"	// 後ろ2
+#define WALK_ANIME_IMG_11	"data/Player/Neko_Base_11.png"	// 後ろ3
 
 //アニメの切り替わり速度（秒）
 #define CHANGE_ANIME_TIME	(0.1f)
@@ -54,7 +54,7 @@ void Player::Init()
 	m_pos = START_POS;
 
 	// 開始アニメを設定
-	currentAnimeKind = AnimeKindWait;
+	currentAnimeKind = AnimeKindWait1;
 	currentAnimeIndex = 0;
 
 	// 時間をクリア
@@ -65,26 +65,32 @@ void Player::Init()
 void Player::Load()
 {
 	//待機アニメを読み込み
-	animeImgHundle[AnimeKindWait][0] = LoadGraph(WAIT_ANIME_IMG_0);
-	animeImgHundle[AnimeKindWait][1] = LoadGraph(WAIT_ANIME_IMG_1);
-	animeImgHundle[AnimeKindWait][2] = LoadGraph(WAIT_ANIME_IMG_2);
-	animeImgHundle[AnimeKindWait][3] = LoadGraph(WAIT_ANIME_IMG_3);
-	animeUsedNum[AnimeKindWait] = WAIT_ANIME_IMG_NUM;
+	animeImgHundle[AnimeKindWait1][0] = LoadGraph(WAIT_ANIME_IMG_0);
+	animeImgHundle[AnimeKindWait2][0] = LoadGraph(WAIT_ANIME_IMG_1);
+	animeImgHundle[AnimeKindWait3][0] = LoadGraph(WAIT_ANIME_IMG_2);
+	animeImgHundle[AnimeKindWait4][0] = LoadGraph(WAIT_ANIME_IMG_3);
+	animeUsedNum[AnimeKindWait1] = WAIT_ANIME_IMG_NUM;
+	animeUsedNum[AnimeKindWait2] = WAIT_ANIME_IMG_NUM;
+	animeUsedNum[AnimeKindWait3] = WAIT_ANIME_IMG_NUM;
+	animeUsedNum[AnimeKindWait4] = WAIT_ANIME_IMG_NUM;
 
 	//歩きアニメを読み込み
-	animeImgHundle[AnimeKindWalk][0] = LoadGraph(WALK_ANIME_IMG_0);
-	animeImgHundle[AnimeKindWalk][1] = LoadGraph(WALK_ANIME_IMG_1);
-	animeImgHundle[AnimeKindWalk][2] = LoadGraph(WALK_ANIME_IMG_2);
-	animeImgHundle[AnimeKindWalk][3] = LoadGraph(WALK_ANIME_IMG_3);
-	animeImgHundle[AnimeKindWalk][4] = LoadGraph(WALK_ANIME_IMG_4);
-	animeImgHundle[AnimeKindWalk][5] = LoadGraph(WALK_ANIME_IMG_5);
-	animeImgHundle[AnimeKindWalk][6] = LoadGraph(WALK_ANIME_IMG_6);
-	animeImgHundle[AnimeKindWalk][7] = LoadGraph(WALK_ANIME_IMG_7);
-	animeImgHundle[AnimeKindWalk][8] = LoadGraph(WALK_ANIME_IMG_8);
-	animeImgHundle[AnimeKindWalk][9] = LoadGraph(WALK_ANIME_IMG_9);
-	animeImgHundle[AnimeKindWalk][10] = LoadGraph(WALK_ANIME_IMG_10);
-	animeImgHundle[AnimeKindWalk][11] = LoadGraph(WALK_ANIME_IMG_11);
-	animeUsedNum[AnimeKindWalk] = WALK_ANIME_ING_NUM;
+	animeImgHundle[AnimeKindWalk1][0] = LoadGraph(WALK_ANIME_IMG_0);
+	animeImgHundle[AnimeKindWalk1][1] = LoadGraph(WALK_ANIME_IMG_1);
+	animeImgHundle[AnimeKindWalk1][2] = LoadGraph(WALK_ANIME_IMG_2);
+	animeImgHundle[AnimeKindWalk2][0] = LoadGraph(WALK_ANIME_IMG_3);
+	animeImgHundle[AnimeKindWalk2][1] = LoadGraph(WALK_ANIME_IMG_4);
+	animeImgHundle[AnimeKindWalk2][2] = LoadGraph(WALK_ANIME_IMG_5);
+	animeImgHundle[AnimeKindWalk3][0] = LoadGraph(WALK_ANIME_IMG_6);
+	animeImgHundle[AnimeKindWalk3][1] = LoadGraph(WALK_ANIME_IMG_7);
+	animeImgHundle[AnimeKindWalk3][2] = LoadGraph(WALK_ANIME_IMG_8);
+	animeImgHundle[AnimeKindWalk4][0] = LoadGraph(WALK_ANIME_IMG_9);
+	animeImgHundle[AnimeKindWalk4][1] = LoadGraph(WALK_ANIME_IMG_10);
+	animeImgHundle[AnimeKindWalk4][2] = LoadGraph(WALK_ANIME_IMG_11);
+	animeUsedNum[AnimeKindWalk1] = WALK_ANIME_ING_NUM;
+	animeUsedNum[AnimeKindWalk2] = WALK_ANIME_ING_NUM;
+	animeUsedNum[AnimeKindWalk3] = WALK_ANIME_ING_NUM;
+	animeUsedNum[AnimeKindWalk4] = WALK_ANIME_ING_NUM;
 }
 
 
@@ -99,42 +105,87 @@ void Player::Step()
 		if (InputKey::IsPushKeyLaw(KEY_INPUT_LEFT) || InputKey::IsPushKeyLaw(KEY_INPUT_A))
 		{
 			m_pos.x -= PLAYER_WALK_SPEED;
+
+			// もし現在待機のアニメをしているなら、
+			if (currentAnimeKind == AnimeKindWait1 || currentAnimeKind == AnimeKindWait2 ||
+				currentAnimeKind == AnimeKindWait3 || currentAnimeKind == AnimeKindWait4)
+			{
+				// 歩きアニメに変更する
+				currentAnimeKind = AnimeKindWalk2;
+			}
 		}
 		// 右なら右へ移動
-		else
+		else if (InputKey::IsPushKeyLaw(KEY_INPUT_RIGHT) || InputKey::IsPushKeyLaw(KEY_INPUT_D))
 		{
 			m_pos.x += PLAYER_WALK_SPEED;
-		}
-		
-		// もし現在待機のアニメをしているなら、
-		if (currentAnimeKind == AnimeKindWait)
-		{
-			// 歩きアニメに変更する
-			currentAnimeKind = AnimeKindWalk;
+
+			// もし現在待機のアニメをしているなら、
+			if (currentAnimeKind == AnimeKindWait1 || currentAnimeKind == AnimeKindWait2 ||
+				currentAnimeKind == AnimeKindWait3 || currentAnimeKind == AnimeKindWait4)
+			{
+				// 歩きアニメに変更する
+				currentAnimeKind = AnimeKindWalk3;
+			}
 		}
 	}
+	// 左右どちらも押されていない
+	else
+	{
+		// もし現在歩きアニメをしているなら
+		if (currentAnimeKind == AnimeKindWalk2)
+		{
+			// 待機アニメに変更する
+			currentAnimeKind = AnimeKindWait2;
+		}
+		else if (currentAnimeKind == AnimeKindWalk3)
+		{
+			currentAnimeKind = AnimeKindWait3;
+		}
+	}
+
 	// 上下どちらかが押されている
 	if (InputKey::IsPushKeyLaw(KEY_INPUT_UP) || InputKey::IsPushKeyLaw(KEY_INPUT_DOWN) ||
 		InputKey::IsPushKeyLaw(KEY_INPUT_W) || InputKey::IsPushKeyLaw(KEY_INPUT_S))
 	{
-		// 左なら左へ移動
+		// 上なら上へ移動
 		if (InputKey::IsPushKeyLaw(KEY_INPUT_UP) || InputKey::IsPushKeyLaw(KEY_INPUT_W))
 		{
 			m_pos.y -= PLAYER_WALK_SPEED;
+
+			// もし現在待機のアニメをしているなら、
+			if (currentAnimeKind == AnimeKindWait1 || currentAnimeKind == AnimeKindWait2 ||
+				currentAnimeKind == AnimeKindWait3 || currentAnimeKind == AnimeKindWait4)
+			{
+				// 歩きアニメに変更する
+				currentAnimeKind = AnimeKindWalk4;
+			}
 		}
-		// 右なら右へ移動
-		else
+		// 下なら下へ移動
+		else if (InputKey::IsPushKeyLaw(KEY_INPUT_DOWN) || InputKey::IsPushKeyLaw(KEY_INPUT_S))
 		{
 			m_pos.y += PLAYER_WALK_SPEED;
+			// もし現在待機のアニメをしているなら、
+			if (currentAnimeKind == AnimeKindWait1 || currentAnimeKind == AnimeKindWait2 ||
+				currentAnimeKind == AnimeKindWait3 || currentAnimeKind == AnimeKindWait4)
+			{
+				// 歩きアニメに変更する
+				currentAnimeKind = AnimeKindWalk1;
+			}
 		}
-
-		// もし現在待機のアニメをしているなら、
-		if (currentAnimeKind == AnimeKindWait)
+	}
+	// 上下どちらも押されていない
+	else
+	{
+		// もし現在歩きアニメをしているなら
+		if (currentAnimeKind == AnimeKindWalk4)
 		{
-			// 歩きアニメに変更する
-			currentAnimeKind = AnimeKindWalk;
+			// 待機アニメに変更する
+			currentAnimeKind = AnimeKindWait4;
 		}
-
+		else if (currentAnimeKind == AnimeKindWalk1)
+		{
+			currentAnimeKind = AnimeKindWait1;
+		}
 	}
 
 	// アニメ時間を加算
