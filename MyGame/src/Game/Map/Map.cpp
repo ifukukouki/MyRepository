@@ -1,8 +1,7 @@
 
 #include "Map.h"
 
-#define MAP_CHIP_X_NUM	(40)	//マップチップ横の数
-#define MAP_CHIP_Y_NUM	(20)	//マップチップ縦の数
+
 
 // マップチップ画像のファイルパス
 #define MAP_CHIP_IMG_PATH	"data/Map/WorldMap-A2.png"
@@ -146,6 +145,8 @@ void Map::InitMap()
 			mapChip[y_index][x_index].isDraw = false;
 		}
 	}
+
+	isReadFile = false;
 }
 
 

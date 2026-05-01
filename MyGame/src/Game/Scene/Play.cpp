@@ -15,7 +15,6 @@ Play::Play()
 	// 最初はデータ初期化
 	m_state = INIT;
 }
-
 //--------------------------------
 // デストラクタ
 //--------------------------------
@@ -141,4 +140,140 @@ void Play::Exit()
 	m_map.FinMap();
 	m_player.Exit();
 }
+
+
+//--------------------------------
+// マップの当たり判定
+//--------------------------------
+void Play::MapCollision()
+{
+
+	// Y方向のみ当たり判定をチェックする
+	for (int mapIndexY = 0; mapIndexY < MAP_CHIP_Y_NUM; mapIndexY++)
+	{
+		for (int mapIndexX = 0; mapIndexX < MAP_CHIP_X_NUM; mapIndexX++)
+		{
+			// ブロック以外は処理しない
+			if (m_map.isReadFile) {
+				if (m_map.m_FileReadMapData[mapIndexY][mapIndexX] == 0)
+					continue;
+			}
+			else {
+				if (m_map.m_mapData[mapIndexY][mapIndexX] == 0)
+					continue;
+			}
+
+			// ★ここを考える
+			// どの方向に進んでいたかチェック
+			// ※Playerクラスに進む方向をチェックする関数を準備しています。
+			bool dirArray[4] = { false,false,false,false };
+			m_player.GetMoveDirection(dirArray);
+
+			// ★ここを考える
+			// 矩形の当たり判定用のデータを準備
+			// プレイヤーの情報
+			int Ax = m_player.GetPosX();
+			int Ay = m_player.GetPosY();
+			int Aw = PLAYER_SIZE;
+			int Ah = PLAYER_SIZE;
+
+			// オブジェクトの情報
+			int Bx = mapIndexX * MAP_SIZE;
+			int By = mapIndexY * MAP_SIZE;
+			int Bw = MAP_SIZE;
+			int Bh = MAP_SIZE;
+
+			// ※Y方向のみに移動したと仮定した座標で当たり判定をチェックします
+			Ay = m_player.GetNextPosY();
+			Ax = m_player.GetPosX();
+
+			// 当たっているかチェック
+			if (IsHitRect(Ax, Ay, Aw, Ah, Bx, By, Bw, Bh)) {
+
+				// 上方向の修正
+				if (dirArray[0]) {
+					// ★ここを考える
+					// めり込み量を計算する
+					int overlap = By + Bh - Ay;
+					m_player.SetNextPosY(Ay + overlap);
+				}
+
+				// 下方向の修正
+				if (dirArray[1]) {
+					// ★ここを考える
+					// めり込み量を計算する
+					int overlap = Ay + Ah - By;
+					m_player.SetNextPosY(Ay - overlap);
+				}
+			}
+		}
+	}
+
+	// X方向のみ当たり判定をチェックする
+	for (int mapIndexY = 0; mapIndexY < MAP_CHIP_Y_NUM; mapIndexY++)
+	{
+		for (int mapIndexX = 0; mapIndexX < MAP_CHIP_X_NUM; mapIndexX++)
+		{
+			// ブロック以外は処理しない
+			if (m_map.m_mapData[mapIndexY][mapIndexX] == 0)
+				continue;
+
+			// ★ここを考える
+			// どの方向に進んでいたかチェック
+			// ※Playerクラスに進む方向をチェックする関数を準備しています。
+			bool dirArray[4] = { false,false,false,false };
+			m_player.GetMoveDirection(dirArray);
+
+			// ★ここを考える
+			// 矩形の当たり判定用のデータを準備
+			// プレイヤーの情報
+			int Ax = m_player.GetPosX();
+			int Ay = m_player.GetPosY();
+			int Aw = PLAYER_SIZE;
+			int Ah = PLAYER_SIZE;
+
+			// オブジェクトの情報
+			int Bx = mapIndexX * MAP_SIZE;
+			int By = mapIndexY * MAP_SIZE;
+			int Bw = MAP_SIZE;
+			int Bh = MAP_SIZE;
+
+			// ★ここを考える
+			// 矩形の当たり判定用のデータを準備
+			// ※X方向のみに移動したと仮定した座標で当たり判定をチェックします
+			Ay = m_player.GetNextPosY();
+			Ax = m_player.GetNextPosX();
+
+			// 当たっているかチェック
+			if (IsHitRect(Ax, Ay, Aw, Ah, Bx, By, Bw, Bh)) {
+
+				// 左方向の修正
+				if (dirArray[2]) {
+					// ★ここを考える
+					// めり込み量を計算する
+					int overlap = Bx + Bw - Ax;
+					m_player.SetNextPosX(Ax + overlap);
+				}
+
+				// 右方向の修正
+				if (dirArray[3]) {
+					// ★ここを考える
+					// めり込み量を計算する
+					int overlap = Ax + Aw - Bx;
+					m_player.SetNextPosX(Ax - overlap);
+				}
+			}
+		}
+	}
+}
+
+// 2つの座標がか重なっている量を取得
+int Play::GetOverlap(int posA, int posB)
+{
+	int ret = posA - posB;
+	return abs(ret);
+}
+
+
+
 

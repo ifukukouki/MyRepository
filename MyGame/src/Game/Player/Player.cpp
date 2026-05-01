@@ -17,24 +17,24 @@ static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
 #define WALK_ANIME_ING_NUM	(3)		// 歩きアニメ
 
 // 待機アニメ画像
-#define WAIT_ANIME_IMG_0	"data/Player/Neko_Base_01.png"	// 正面
+#define WAIT_ANIME_IMG_0	"data/Player/Neko_Base_01.png"	// 手前
 #define WAIT_ANIME_IMG_1	"data/Player/Neko_Base_04.png"	// 左
 #define WAIT_ANIME_IMG_2	"data/Player/Neko_Base_07.png"	// 右
-#define WAIT_ANIME_IMG_3	"data/Player/Neko_Base_10.png"	// 後ろ
+#define WAIT_ANIME_IMG_3	"data/Player/Neko_Base_10.png"	// 奥
 
 // 歩きアニメ画像
-#define WALK_ANIME_IMG_0	"data/Player/Neko_Base_00.png"	// 正面1
-#define WALK_ANIME_IMG_1	"data/Player/Neko_Base_01.png"	// 正面2
-#define WALK_ANIME_IMG_2	"data/Player/Neko_Base_02.png"	// 正面3
+#define WALK_ANIME_IMG_0	"data/Player/Neko_Base_00.png"	// 手前1
+#define WALK_ANIME_IMG_1	"data/Player/Neko_Base_01.png"	// 手前2
+#define WALK_ANIME_IMG_2	"data/Player/Neko_Base_02.png"	// 手前3
 #define WALK_ANIME_IMG_3	"data/Player/Neko_Base_03.png"	// 左1
 #define WALK_ANIME_IMG_4	"data/Player/Neko_Base_04.png"	// 左2
 #define WALK_ANIME_IMG_5	"data/Player/Neko_Base_05.png"	// 左3
 #define WALK_ANIME_IMG_6	"data/Player/Neko_Base_06.png"	// 右1
 #define WALK_ANIME_IMG_7	"data/Player/Neko_Base_07.png"	// 右2
 #define WALK_ANIME_IMG_8	"data/Player/Neko_Base_08.png"	// 右3
-#define WALK_ANIME_IMG_9	"data/Player/Neko_Base_09.png"	// 後ろ1
-#define WALK_ANIME_IMG_10	"data/Player/Neko_Base_10.png"	// 後ろ2
-#define WALK_ANIME_IMG_11	"data/Player/Neko_Base_11.png"	// 後ろ3
+#define WALK_ANIME_IMG_9	"data/Player/Neko_Base_09.png"	// 奥1
+#define WALK_ANIME_IMG_10	"data/Player/Neko_Base_10.png"	// 奥2
+#define WALK_ANIME_IMG_11	"data/Player/Neko_Base_11.png"	// 奥3
 
 //アニメの切り替わり速度（秒）
 #define CHANGE_ANIME_TIME	(0.1f)
@@ -65,28 +65,28 @@ void Player::Init()
 void Player::Load()
 {
 	//待機アニメを読み込み
-	animeImgHundle[AnimeKindWait1][0] = LoadGraph(WAIT_ANIME_IMG_0);
-	animeImgHundle[AnimeKindWait2][0] = LoadGraph(WAIT_ANIME_IMG_1);
-	animeImgHundle[AnimeKindWait3][0] = LoadGraph(WAIT_ANIME_IMG_2);
-	animeImgHundle[AnimeKindWait4][0] = LoadGraph(WAIT_ANIME_IMG_3);
+	animeImgHundle[AnimeKindWait1][0] = LoadGraph(WAIT_ANIME_IMG_0);	// 手前
+	animeImgHundle[AnimeKindWait2][0] = LoadGraph(WAIT_ANIME_IMG_1);	// 左
+	animeImgHundle[AnimeKindWait3][0] = LoadGraph(WAIT_ANIME_IMG_2);	// 右
+	animeImgHundle[AnimeKindWait4][0] = LoadGraph(WAIT_ANIME_IMG_3);	// 奥
 	animeUsedNum[AnimeKindWait1] = WAIT_ANIME_IMG_NUM;
 	animeUsedNum[AnimeKindWait2] = WAIT_ANIME_IMG_NUM;
 	animeUsedNum[AnimeKindWait3] = WAIT_ANIME_IMG_NUM;
 	animeUsedNum[AnimeKindWait4] = WAIT_ANIME_IMG_NUM;
 
 	//歩きアニメを読み込み
-	animeImgHundle[AnimeKindWalk1][0] = LoadGraph(WALK_ANIME_IMG_0);
-	animeImgHundle[AnimeKindWalk1][1] = LoadGraph(WALK_ANIME_IMG_1);
-	animeImgHundle[AnimeKindWalk1][2] = LoadGraph(WALK_ANIME_IMG_2);
-	animeImgHundle[AnimeKindWalk2][0] = LoadGraph(WALK_ANIME_IMG_3);
-	animeImgHundle[AnimeKindWalk2][1] = LoadGraph(WALK_ANIME_IMG_4);
-	animeImgHundle[AnimeKindWalk2][2] = LoadGraph(WALK_ANIME_IMG_5);
-	animeImgHundle[AnimeKindWalk3][0] = LoadGraph(WALK_ANIME_IMG_6);
-	animeImgHundle[AnimeKindWalk3][1] = LoadGraph(WALK_ANIME_IMG_7);
-	animeImgHundle[AnimeKindWalk3][2] = LoadGraph(WALK_ANIME_IMG_8);
-	animeImgHundle[AnimeKindWalk4][0] = LoadGraph(WALK_ANIME_IMG_9);
-	animeImgHundle[AnimeKindWalk4][1] = LoadGraph(WALK_ANIME_IMG_10);
-	animeImgHundle[AnimeKindWalk4][2] = LoadGraph(WALK_ANIME_IMG_11);
+	animeImgHundle[AnimeKindWalk1][0] = LoadGraph(WALK_ANIME_IMG_0);	// 手前1
+	animeImgHundle[AnimeKindWalk1][1] = LoadGraph(WALK_ANIME_IMG_1);	// 手前2
+	animeImgHundle[AnimeKindWalk1][2] = LoadGraph(WALK_ANIME_IMG_2);	// 手前3
+	animeImgHundle[AnimeKindWalk2][0] = LoadGraph(WALK_ANIME_IMG_3);	// 左1
+	animeImgHundle[AnimeKindWalk2][1] = LoadGraph(WALK_ANIME_IMG_4);	// 左2
+	animeImgHundle[AnimeKindWalk2][2] = LoadGraph(WALK_ANIME_IMG_5);	// 左3
+	animeImgHundle[AnimeKindWalk3][0] = LoadGraph(WALK_ANIME_IMG_6);	// 右1
+	animeImgHundle[AnimeKindWalk3][1] = LoadGraph(WALK_ANIME_IMG_7);	// 右2
+	animeImgHundle[AnimeKindWalk3][2] = LoadGraph(WALK_ANIME_IMG_8);	// 右3
+	animeImgHundle[AnimeKindWalk4][0] = LoadGraph(WALK_ANIME_IMG_9);	// 奥1
+	animeImgHundle[AnimeKindWalk4][1] = LoadGraph(WALK_ANIME_IMG_10);	// 奥2
+	animeImgHundle[AnimeKindWalk4][2] = LoadGraph(WALK_ANIME_IMG_11);	// 奥3
 	animeUsedNum[AnimeKindWalk1] = WALK_ANIME_ING_NUM;
 	animeUsedNum[AnimeKindWalk2] = WALK_ANIME_ING_NUM;
 	animeUsedNum[AnimeKindWalk3] = WALK_ANIME_ING_NUM;

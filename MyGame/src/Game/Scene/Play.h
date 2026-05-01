@@ -25,6 +25,11 @@ private:
 	Map m_map;				// マップ
 	Player m_player;		// プレイヤー
 
+	// マップの当たり判定
+	void MapCollision();
+	// 2つの座標がか重なっている量を取得
+	int GetOverlap(int posA, int posB);
+
 public:
 	// コンストラクタ・デストラクタ
 	Play();
