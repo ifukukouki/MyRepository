@@ -18,3 +18,6 @@ bool ChekHitSquareToSquare(VECTOR squarePos1, int width1, int height1,
 //円同士の当たり判定
 bool ChekHitCircleToCircle(VECTOR circlePos1, int radius1,
 	VECTOR circlePos2, int radius2);
+
+//IsHitRectのプロトタイプ宣言
+bool IsHitRect(int Ax, int Ay, int Aw, int Ah, int Bx, int By, int Bw, int Bh);

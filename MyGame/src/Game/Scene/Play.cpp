@@ -129,6 +129,8 @@ void Play::Load()
 void Play::Step()
 {
 	m_player.Step();
+	MapCollision();
+	m_player.UpdatePos();
 }
 
 
@@ -147,7 +149,6 @@ void Play::Exit()
 //--------------------------------
 void Play::MapCollision()
 {
-
 	// Y方向のみ当たり判定をチェックする
 	for (int mapIndexY = 0; mapIndexY < MAP_CHIP_Y_NUM; mapIndexY++)
 	{
@@ -159,17 +160,15 @@ void Play::MapCollision()
 					continue;
 			}
 			else {
-				if (m_map.m_mapData[mapIndexY][mapIndexX] == 0)
+				if (m_map.m_MapData[mapIndexY][mapIndexX] == 0)
 					continue;
 			}
 
-			// ★ここを考える
 			// どの方向に進んでいたかチェック
 			// ※Playerクラスに進む方向をチェックする関数を準備しています。
 			bool dirArray[4] = { false,false,false,false };
 			m_player.GetMoveDirection(dirArray);
 
-			// ★ここを考える
 			// 矩形の当たり判定用のデータを準備
 			// プレイヤーの情報
 			int Ax = m_player.GetPosX();
@@ -192,7 +191,6 @@ void Play::MapCollision()
 
 				// 上方向の修正
 				if (dirArray[0]) {
-					// ★ここを考える
 					// めり込み量を計算する
 					int overlap = By + Bh - Ay;
 					m_player.SetNextPosY(Ay + overlap);
@@ -200,7 +198,6 @@ void Play::MapCollision()
 
 				// 下方向の修正
 				if (dirArray[1]) {
-					// ★ここを考える
 					// めり込み量を計算する
 					int overlap = Ay + Ah - By;
 					m_player.SetNextPosY(Ay - overlap);
@@ -215,16 +212,14 @@ void Play::MapCollision()
 		for (int mapIndexX = 0; mapIndexX < MAP_CHIP_X_NUM; mapIndexX++)
 		{
 			// ブロック以外は処理しない
-			if (m_map.m_mapData[mapIndexY][mapIndexX] == 0)
+			if (m_map.m_MapData[mapIndexY][mapIndexX] == 0)
 				continue;
 
-			// ★ここを考える
 			// どの方向に進んでいたかチェック
 			// ※Playerクラスに進む方向をチェックする関数を準備しています。
 			bool dirArray[4] = { false,false,false,false };
 			m_player.GetMoveDirection(dirArray);
 
-			// ★ここを考える
 			// 矩形の当たり判定用のデータを準備
 			// プレイヤーの情報
 			int Ax = m_player.GetPosX();
@@ -238,7 +233,6 @@ void Play::MapCollision()
 			int Bw = MAP_SIZE;
 			int Bh = MAP_SIZE;
 
-			// ★ここを考える
 			// 矩形の当たり判定用のデータを準備
 			// ※X方向のみに移動したと仮定した座標で当たり判定をチェックします
 			Ay = m_player.GetNextPosY();
@@ -249,7 +243,6 @@ void Play::MapCollision()
 
 				// 左方向の修正
 				if (dirArray[2]) {
-					// ★ここを考える
 					// めり込み量を計算する
 					int overlap = Bx + Bw - Ax;
 					m_player.SetNextPosX(Ax + overlap);
@@ -257,7 +250,6 @@ void Play::MapCollision()
 
 				// 右方向の修正
 				if (dirArray[3]) {
-					// ★ここを考える
 					// めり込み量を計算する
 					int overlap = Ax + Aw - Bx;
 					m_player.SetNextPosX(Ax - overlap);

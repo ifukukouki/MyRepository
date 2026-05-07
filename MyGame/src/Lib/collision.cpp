@@ -74,3 +74,17 @@ bool ChekHitCircleToCircle(VECTOR circlePos1, int radius1,
 		return false;
 	}
 }
+
+//IsHitRect‚Ì’è‹`
+bool IsHitRect(int Ax, int Ay, int Aw, int Ah, int Bx, int By, int Bw, int Bh) {
+	if (Bx < Ax + Aw &&
+		Bx + Bw > Ax &&
+		By + Bh > Ay &&
+		By < Ay + Ah)
+	{
+		// “–‚½‚Á‚Ä‚¢‚é‚Æ‚«‚Ìˆ—
+		return true;
+	}
+
+	return false;
+}

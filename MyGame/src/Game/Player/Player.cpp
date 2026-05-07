@@ -40,8 +40,8 @@ static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
 #define CHANGE_ANIME_TIME	(0.1f)
 
 
-Player::Player() :m_pos(ZERO), animeImgHundle(), animeUsedNum(), currentAnimeKind(),
-					currentAnimeIndex(0), currentAnimeTime(0.0f)
+Player::Player() :m_pos(ZERO), m_nextPosX(0), m_nextPosY(0), animeImgHundle(), animeUsedNum(), 
+					currentAnimeKind(),currentAnimeIndex(0), currentAnimeTime(0.0f)
 {
 }
 Player::~Player()
@@ -52,6 +52,12 @@ Player::~Player()
 void Player::Init()
 {
 	m_pos = START_POS;
+
+	// ※m_nextPosを使っている理由は
+	// 　十字キー操作以外で移動したときにどの方向に
+	// 　移動しているかチェックするため
+	m_nextPosX = m_pos.x;
+	m_nextPosY = m_pos.y;
 
 	// 開始アニメを設定
 	currentAnimeKind = AnimeKindWait1;
@@ -104,7 +110,7 @@ void Player::Step()
 		// 左なら左へ移動
 		if (InputKey::IsPushKeyLaw(KEY_INPUT_LEFT) || InputKey::IsPushKeyLaw(KEY_INPUT_A))
 		{
-			m_pos.x -= PLAYER_WALK_SPEED;
+			m_nextPosX -= PLAYER_WALK_SPEED;
 
 			// もし現在待機のアニメをしているなら、
 			if (currentAnimeKind == AnimeKindWait1 || currentAnimeKind == AnimeKindWait2 ||
@@ -117,7 +123,7 @@ void Player::Step()
 		// 右なら右へ移動
 		else if (InputKey::IsPushKeyLaw(KEY_INPUT_RIGHT) || InputKey::IsPushKeyLaw(KEY_INPUT_D))
 		{
-			m_pos.x += PLAYER_WALK_SPEED;
+			m_nextPosX += PLAYER_WALK_SPEED;
 
 			// もし現在待機のアニメをしているなら、
 			if (currentAnimeKind == AnimeKindWait1 || currentAnimeKind == AnimeKindWait2 ||
@@ -150,7 +156,7 @@ void Player::Step()
 		// 上なら上へ移動
 		if (InputKey::IsPushKeyLaw(KEY_INPUT_UP) || InputKey::IsPushKeyLaw(KEY_INPUT_W))
 		{
-			m_pos.y -= PLAYER_WALK_SPEED;
+			m_nextPosY -= PLAYER_WALK_SPEED;
 
 			// もし現在待機のアニメをしているなら、
 			if (currentAnimeKind == AnimeKindWait1 || currentAnimeKind == AnimeKindWait2 ||
@@ -163,7 +169,8 @@ void Player::Step()
 		// 下なら下へ移動
 		else if (InputKey::IsPushKeyLaw(KEY_INPUT_DOWN) || InputKey::IsPushKeyLaw(KEY_INPUT_S))
 		{
-			m_pos.y += PLAYER_WALK_SPEED;
+			m_nextPosY += PLAYER_WALK_SPEED;
+
 			// もし現在待機のアニメをしているなら、
 			if (currentAnimeKind == AnimeKindWait1 || currentAnimeKind == AnimeKindWait2 ||
 				currentAnimeKind == AnimeKindWait3 || currentAnimeKind == AnimeKindWait4)
@@ -235,6 +242,50 @@ void Player::Exit()
 			DeleteGraph(animeImgHundle[anime_kind_index][image_index]);
 		}
 	}
+}
+
+
+// 座標を更新
+void Player::SetNextPosX(int _posX) {
+	m_nextPosX = _posX;
+}
+
+
+// 座標を更新
+void Player::SetNextPosY(int _posY) {
+	m_nextPosY = _posY;
+}
+
+
+// 進んでいる方向をチェック
+// 上下左右の順になっている
+void Player::GetMoveDirection(bool* _dirArray) {
+	// 右方向のチェック
+	if (m_nextPosX > m_pos.x) {
+		_dirArray[3] = true;
+	}
+
+	// 左方向のチェック
+	if (m_nextPosX < m_pos.x) {
+		_dirArray[2] = true;
+	}
+
+	// 下方向のチェック
+	if (m_nextPosY > m_pos.y) {
+		_dirArray[1] = true;
+	}
+
+	// 左方向のチェック
+	if (m_nextPosY < m_pos.y) {
+		_dirArray[0] = true;
+	}
+}
+
+
+// 座標を更新
+void Player::UpdatePos() {
+	m_pos.x = m_nextPosX;
+	m_pos.y = m_nextPosY;
 }
 
 

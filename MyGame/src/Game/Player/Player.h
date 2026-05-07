@@ -5,6 +5,9 @@
 // 各アニメで使える画像の最大数
 #define ANIME_IMG_MAX	(3)
 
+// プレイヤー画像のサイズ
+const int PLAYER_SIZE = 60;
+
 class Player
 {
 public:
@@ -17,8 +20,31 @@ public:
 	void Draw();
 	void Exit();
 
+	// 移動後の座標を取得
+	int GetNextPosX() { return m_nextPosX; }
+	int GetNextPosY() { return m_nextPosY; }
+
+	// 現在の座標を取得
+	int GetPosX() { return m_pos.x; }
+	int GetPosY() { return m_pos.y; }
+
+	// 移動後の座標を設定
+	void SetNextPosX(int _posX);
+	void SetNextPosY(int _posY);
+
+	// 進んでいる方向をチェック
+	// 上下左右の順になっている
+	void GetMoveDirection(bool* _dirArray);
+
+	// 座標を更新
+	void UpdatePos();
+
 private:
 	VECTOR m_pos;
+
+	// 移動後の座標
+	int m_nextPosX;
+	int m_nextPosY;
 
 	// アニメの種類
 	enum AnimeKind
@@ -51,4 +77,5 @@ private:
 	//現在のアニメ時間
 	float currentAnimeTime;
 };
+
 
