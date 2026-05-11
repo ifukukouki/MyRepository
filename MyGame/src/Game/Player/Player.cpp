@@ -6,9 +6,6 @@
 #define SCREEN_SIZE_X (1280.0f)
 #define SCREEN_SIZE_Y (640.0f)
 
-static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
-static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
-
 //プレイヤーの移動速度
 #define PLAYER_WALK_SPEED	(2.0f)
 
@@ -38,6 +35,10 @@ static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
 
 //アニメの切り替わり速度（秒）
 #define CHANGE_ANIME_TIME	(0.1f)
+
+
+static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
+static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
 
 
 Player::Player() :m_pos(ZERO), m_nextPosX(0), m_nextPosY(0), animeImgHundle(), animeUsedNum(), 

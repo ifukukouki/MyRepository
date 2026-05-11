@@ -75,6 +75,9 @@
     <ClCompile Include="src\Game\Enemy\EnemyManager.cpp">
       <Filter>ソース ファイル\Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Player\Weapon.cpp">
+      <Filter>ソース ファイル\Game\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Lib\collision.h">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Enemy\EnemyManager.h">
       <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Player\Weapon.h">
+      <Filter>ソース ファイル\Game\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

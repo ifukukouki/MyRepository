@@ -6,7 +6,7 @@
 #define MAP_CHIP_Y_NUM	(20)	//マップチップ縦の数
 
 // マップサイズ
-const int MAP_SIZE = 60;
+const int MAP_SIZE = 32;
 
 class Map
 {
@@ -36,6 +36,8 @@ public:
 	void FinMap();
 
 private:
+	// 画像ハンドル
+	int imgHundle;
 
 };
 

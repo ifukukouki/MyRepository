@@ -3,6 +3,7 @@
 #include <DxLib.h>
 #include "../Map/Map.h"
 #include "../Player/Player.h"
+#include "../Player/Weapon.h"
 
 
 // ゲーム本編を管理するクラス
@@ -24,6 +25,7 @@ private:
 
 	Map m_map;				// マップ
 	Player m_player;		// プレイヤー
+	Weapon m_weapon;		// プレイヤーの武器
 
 	// マップの当たり判定
 	void MapCollision();

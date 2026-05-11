@@ -100,6 +100,7 @@ void Play::Draw()
 {
 	m_map.DrawMap();
 	m_player.Draw();
+	m_weapon.Draw();
 }
 
 
@@ -110,6 +111,7 @@ void Play::Init()
 {
 	m_map.InitMap();
 	m_player.Init();
+	m_weapon.Init();
 }
 
 
@@ -120,6 +122,7 @@ void Play::Load()
 {
 	m_map.LoadMap();
 	m_player.Load();
+	m_weapon.Load();
 }
 
 
@@ -131,6 +134,7 @@ void Play::Step()
 	m_player.Step();
 	MapCollision();
 	m_player.UpdatePos();
+	m_weapon.Step();
 }
 
 
@@ -141,6 +145,7 @@ void Play::Exit()
 {
 	m_map.FinMap();
 	m_player.Exit();
+	m_weapon.Exit();
 }
 
 

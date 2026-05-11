@@ -6,7 +6,7 @@
 #define ANIME_IMG_MAX	(3)
 
 // プレイヤー画像のサイズ
-const int PLAYER_SIZE = 60;
+const int PLAYER_SIZE = 16;
 
 class Player
 {
