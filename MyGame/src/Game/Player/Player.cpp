@@ -204,18 +204,15 @@ void Player::Step()
 	{
 		// 時間をリセット
 		currentAnimeTime = 0;
-		// ★ココに↑の処理
 
 		// アニメの画像番号を進める
 		currentAnimeIndex++;
-		// ★ココに↑の処理
 
 		// 次のアニメが無いなら（現在のアニメ画像番号が最後なら）
 		if (currentAnimeIndex >= animeUsedNum[currentAnimeKind])
 		{
 			// 最初のアニメ画像に戻す（ループさせる）
 			currentAnimeIndex = 0;
-			// ★ココに↑の処理
 		}
 	}
 }
