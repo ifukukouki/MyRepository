@@ -2,8 +2,13 @@
 
 #include <DxLib.h>
 
+
+#define WEAPON_SPEED (5.0f);
+
+
 // •Ší‰æ‘œ‚ÌƒTƒCƒY
 const int WEAPON_SIZE = 16;
+
 
 class Weapon
 {
@@ -17,9 +22,9 @@ public:
 	void Draw();
 	void Exit();
 
+
 private:
 	VECTOR m_pos;
-	VECTOR m_countPos;
 	int m_hndl;
 	bool m_isActive;
 

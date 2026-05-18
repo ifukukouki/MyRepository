@@ -134,7 +134,7 @@ void Play::Step()
 	m_player.Step();
 	MapCollision();
 	m_player.UpdatePos();
-	m_weapon.Step(m_player.GetPosX(), m_player.GetPosY());
+	m_weapon.Step(m_player.GetNextPosX(), m_player.GetNextPosY());
 }
 
 

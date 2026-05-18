@@ -256,7 +256,6 @@ void Player::SetNextPosY(int _posY) {
 
 
 // 進んでいる方向をチェック
-// 上下左右の順になっている
 void Player::GetMoveDirection(bool* _dirArray) {
 	// 右方向のチェック
 	if (m_nextPosX > m_pos.x) {
@@ -273,7 +272,7 @@ void Player::GetMoveDirection(bool* _dirArray) {
 		_dirArray[1] = true;
 	}
 
-	// 左方向のチェック
+	// 上方向のチェック
 	if (m_nextPosY < m_pos.y) {
 		_dirArray[0] = true;
 	}
