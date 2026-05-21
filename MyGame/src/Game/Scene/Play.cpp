@@ -135,6 +135,7 @@ void Play::Step()
 	MapCollision();
 	m_player.UpdatePos();
 	m_weapon.Step(m_player.GetNextPosX(), m_player.GetNextPosY());
+	WeaponShotDirection();
 }
 
 
@@ -264,13 +265,48 @@ void Play::MapCollision()
 	}
 }
 
-// 2つの座標がか重なっている量を取得
-int Play::GetOverlap(int posA, int posB)
+//// 2つの座標がか重なっている量を取得
+//int Play::GetOverlap(int posA, int posB)
+//{
+//	int ret = posA - posB;
+//	return abs(ret);
+//}
+
+
+//--------------------------------
+// 武器を撃ち出す方向
+//--------------------------------
+void Play::WeaponShotDirection()
 {
-	int ret = posA - posB;
-	return abs(ret);
+	// 武器の生存フラグがオンになったら
+	if (m_weapon.isActive() == true)
+	{
+		// まずプレイヤーの現在のアニメをチェック
+		// アニメで上下左右を判断してそのの方向に武器を発射
+		switch (m_player.GetPlayerAnime())
+		{
+			// 上方向
+		case 1:
+			m_weapon.UpShot();
+			break;
+
+			// 下方向
+		case 2:
+			m_weapon.DownShot();
+			break;
+
+			// 左方向
+		case 3:
+			m_weapon.LeftShot();
+			break;
+
+			// 右方向
+		case 4:
+			m_weapon.RightShot();
+			break;
+		}
+	}
+
 }
-
-
 
 

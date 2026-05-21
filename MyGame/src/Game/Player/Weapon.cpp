@@ -10,7 +10,7 @@
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
 
 
-Weapon::Weapon() :m_pos(ZERO), m_hndl(-1), m_isActive(false)
+Weapon::Weapon() :m_pos(ZERO), m_hndl(-1), m_isActive(false), m_angle(0.0)
 {
 }
 Weapon::~Weapon()
@@ -37,21 +37,14 @@ void Weapon::Step(int playerPosX, int playerPosY)
 		m_isActive = true;
 		m_pos.x = playerPosX;
 		m_pos.y = playerPosY;
-
+		
 	}
 	// プレイヤーからある程度離れたら生存フラグを消す
-	if (m_pos.x <= playerPosX - 100 || m_pos.x >= playerPosX + 100 ||
-		m_pos.y <= playerPosY - 100 || m_pos.y >= playerPosY + 100)
+	if (m_pos.x <= playerPosX - 50 || m_pos.x >= playerPosX + 50 ||
+		m_pos.y <= playerPosY - 50 || m_pos.y >= playerPosY + 50)
 	{
 		m_isActive = false;
 	}
-	
-	if (m_isActive == true)
-	{
-		m_pos.x -= WEAPON_SPEED;
-		
-	}
-
 }
 
 
@@ -60,7 +53,7 @@ void Weapon::Draw()
 	// フラグがオンなら描画
 	if (m_isActive == true)
 	{
-		DrawRotaGraph(m_pos.x, m_pos.y, 0.05, 0.0, m_hndl, true);
+		DrawRotaGraph(m_pos.x, m_pos.y, 0.05, m_angle, m_hndl, true);
 	}
 }
 
@@ -71,4 +64,25 @@ void Weapon::Exit()
 	DeleteGraph(m_hndl);
 }
 
+
+void Weapon::UpShot()
+{
+	m_angle = 0.8;
+	m_pos.y -= WEAPON_SPEED;
+}
+void Weapon::DownShot()
+{
+	m_angle = 3.9;
+	m_pos.y += WEAPON_SPEED;
+}
+void Weapon::LeftShot()
+{
+	m_angle = 5.5;
+	m_pos.x -= WEAPON_SPEED;
+}
+void Weapon::RightShot()
+{
+	m_angle = 2.35;
+	m_pos.x += WEAPON_SPEED;
+}
 

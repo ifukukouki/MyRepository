@@ -39,6 +39,9 @@ public:
 	// 座標を更新
 	void UpdatePos();
 
+	// プレイヤーのアニメを取得
+	int GetPlayerAnime() { return nowAnime; }
+
 private:
 	VECTOR m_pos;
 
@@ -76,6 +79,9 @@ private:
 
 	//現在のアニメ時間
 	float currentAnimeTime;
+
+	// 現在のアニメ取得用
+	int nowAnime;
 };
 
 
