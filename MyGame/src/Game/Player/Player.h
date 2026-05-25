@@ -39,8 +39,10 @@ public:
 	// 座標を更新
 	void UpdatePos();
 
+	// プレイヤーの向いている方向を取得
+	float GetPlayerAngle() { return angle; }
 	// プレイヤーのアニメを取得
-	int GetPlayerAnime() { return nowAnime; }
+	int GetPlayerAnime() { return anime; }
 
 private:
 	VECTOR m_pos;
@@ -80,8 +82,10 @@ private:
 	//現在のアニメ時間
 	float currentAnimeTime;
 
+	// プレイヤーの向きを取得用
+	float angle;
 	// 現在のアニメ取得用
-	int nowAnime;
+	int anime;
 };
 
 

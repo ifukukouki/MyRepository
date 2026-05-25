@@ -4,12 +4,19 @@
 #include "Player.h"
 
 
-#define WEAPON_SPEED (5.0f);
+#define WEAPON_SPEED (5.0f)	// 移動速度
+#define WEAPON_MAX (50)		// 撃てる最大数
 
 
 // 武器画像のサイズ
 const int WEAPON_SIZE = 16;
 
+typedef struct
+{
+	VECTOR m_pos;
+	bool m_isActive;
+	float m_angle;
+}WEAPON_DATA;
 
 class Weapon
 {
@@ -19,24 +26,19 @@ public:
 
 	void Init();
 	void Load();
-	void Step(int playerPosX, int playerPosY);
+	void Step(int playerPosX, int playerPosY, float playerAngle);
 	void Draw();
 	void Exit();
 
-	bool isActive() { return m_isActive; }
-
-	VECTOR GetPos() { return m_pos; }
-
-	void UpShot();
-	void DownShot();
-	void LeftShot();
-	void RightShot();
+	void UpShot(int i);
+	void DownShot(int i);
+	void LeftShot(int i);
+	void RightShot(int i);
 
 private:
-	VECTOR m_pos;
 	int m_hndl;
-	bool m_isActive;
-	float m_angle;
-	
+	WEAPON_DATA m_weapon[WEAPON_MAX];
+
+	Player m_player;
 };
 

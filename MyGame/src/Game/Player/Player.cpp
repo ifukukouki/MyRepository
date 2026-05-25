@@ -42,7 +42,7 @@ static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
 
 
 Player::Player() :m_pos(ZERO), m_nextPosX(0), m_nextPosY(0), animeImgHundle(), animeUsedNum(), 
-					currentAnimeKind(),currentAnimeIndex(0), currentAnimeTime(0.0f), nowAnime(0)
+					currentAnimeKind(),currentAnimeIndex(0), currentAnimeTime(0.0f), angle(0.0f)
 {
 }
 Player::~Player()
@@ -120,8 +120,9 @@ void Player::Step()
 				// 歩きアニメに変更する
 				currentAnimeKind = AnimeKindWalk2;
 
-				// 現在のアニメを伝える用
-				nowAnime = 3;
+				// 武器用に角度を伝える用
+				anime = 3;
+				angle = 5.5;
 			}
 		}
 		// 右なら右へ移動
@@ -137,7 +138,8 @@ void Player::Step()
 				currentAnimeKind = AnimeKindWalk3;
 
 				// 現在のアニメを伝える用
-				nowAnime = 4;
+				anime = 4;
+				angle = 2.35;
 			}
 		}
 	}
@@ -151,14 +153,16 @@ void Player::Step()
 			currentAnimeKind = AnimeKindWait2;
 
 			// 現在のアニメを伝える用
-			nowAnime = 3;
+			anime = 3;
+			angle = 5.5;
 		}
 		else if (currentAnimeKind == AnimeKindWalk3)
 		{
 			currentAnimeKind = AnimeKindWait3;
 
 			// 現在のアニメを伝える用
-			nowAnime = 4;
+			anime = 4;
+			angle = 2.35;
 		}
 	}
 
@@ -179,7 +183,8 @@ void Player::Step()
 				currentAnimeKind = AnimeKindWalk4;
 
 				// 現在のアニメを伝える用
-				nowAnime = 1;
+				anime = 1;
+				angle = 0.8;
 			}
 		}
 		// 下なら下へ移動
@@ -195,7 +200,8 @@ void Player::Step()
 				currentAnimeKind = AnimeKindWalk1;
 
 				// 現在のアニメを伝える用
-				nowAnime = 2;
+				anime = 2;
+				angle = 3.9;
 			}
 		}
 	}
@@ -209,14 +215,16 @@ void Player::Step()
 			currentAnimeKind = AnimeKindWait4;
 
 			// 現在のアニメを伝える用
-			nowAnime = 1;
+			anime = 1;
+			angle = 0.8;
 		}
 		else if (currentAnimeKind == AnimeKindWalk1)
 		{
 			currentAnimeKind = AnimeKindWait1;
 
 			// 現在のアニメを伝える用
-			nowAnime = 2;
+			anime = 2;
+			angle = 3.9;
 		}
 	}
 

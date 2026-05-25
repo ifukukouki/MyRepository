@@ -32,7 +32,7 @@ private:
 	// 2つの座標がか重なっている量を取得
 	//int GetOverlap(int posA, int posB);
 	// 武器を撃ち出す方向
-	void WeaponShotDirection();
+	//void WeaponShotDirection();
 
 public:
 	// コンストラクタ・デストラクタ
