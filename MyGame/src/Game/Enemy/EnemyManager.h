@@ -7,9 +7,12 @@
 class EnemyManager
 {
 public:
-	EnemyManager();
-	~EnemyManager();
-
+	void Init();
+	void Load();
+	void Exit();
+	void Step(VECTOR playerPos);
+	void Draw();
+	void Request();
 
 private:
 

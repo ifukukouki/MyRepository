@@ -134,8 +134,16 @@ void Play::Step()
 	m_player.Step();
 	MapCollision();
 	m_player.UpdatePos();
-	m_weapon.Step(m_player.GetNextPosX(), m_player.GetNextPosY(), m_player.GetPlayerAngle());
-	//WeaponShotDirection();
+	m_weapon.Step(m_player.GetNextPosX(), m_player.GetNextPosY(),
+					m_player.GetPlayerAngle(), m_player.GetPlayerAnime());
+	for (int i = 0; i < WEAPON_MAX; i++)
+	{
+		m_weapon.UpShot(i);
+		m_weapon.DownShot(i);
+		m_weapon.LeftShot(i);
+		m_weapon.RightShot(i);
+	}
+	
 }
 
 
@@ -273,47 +281,5 @@ void Play::MapCollision()
 //}
 
 
-//--------------------------------
-// 武器を撃ち出す方向
-//--------------------------------
-//void Play::WeaponShotDirection()
-//{
-//	// まずプレイヤーの現在のアニメをチェック
-//	// アニメで上下左右を判断してそのの方向に武器を発射
-//	switch (m_player.GetPlayerAnime())
-//	{
-//		// 上方向
-//	case 1:
-//		for (int i = 0; i < WEAPON_MAX; i++)
-//		{
-//			m_weapon.UpShot(i);
-//		}
-//		break;
-//
-//		// 下方向
-//	case 2:
-//		for (int i = 0; i < WEAPON_MAX; i++)
-//		{
-//			m_weapon.DownShot(i);
-//		}
-//		break;
-//
-//		// 左方向
-//	case 3:
-//		for (int i = 0; i < WEAPON_MAX; i++)
-//		{
-//			m_weapon.LeftShot(i);
-//		}
-//		break;
-//
-//		// 右方向
-//	case 4:
-//		for (int i = 0; i < WEAPON_MAX; i++)
-//		{
-//			m_weapon.RightShot(i);
-//		}
-//		break;
-//	}
-//}
 
 
