@@ -4,6 +4,7 @@
 #include "../Map/Map.h"
 #include "../Player/Player.h"
 #include "../Player/Weapon.h"
+#include "../Enemy/Enemy.h"
 
 
 // ゲーム本編を管理するクラス
@@ -21,11 +22,12 @@ private:
 		END,		// 終了前のデータ破棄
 	};
 
-	tagSCENE m_state;		// 現在の状態遷移
+	tagSCENE m_state;	// 現在の状態遷移
 
-	Map m_map;				// マップ
-	Player m_player;		// プレイヤー
-	Weapon m_weapon;		// プレイヤーの武器
+	Map m_map;			// マップ
+	Player m_player;	// プレイヤー
+	Weapon m_weapon;	// プレイヤーの武器
+	Enemy m_enemy;		// 敵
 
 	// マップの当たり判定
 	void MapCollision();

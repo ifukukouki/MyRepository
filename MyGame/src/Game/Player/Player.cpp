@@ -42,7 +42,8 @@ static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
 
 
 Player::Player() :m_pos(ZERO), m_nextPosX(0), m_nextPosY(0), animeImgHundle(), animeUsedNum(), 
-					currentAnimeKind(),currentAnimeIndex(0), currentAnimeTime(0.0f), angle(0.0f)
+					currentAnimeKind(),currentAnimeIndex(0), currentAnimeTime(0.0f), angle(0.0f),
+					anime(0)
 {
 }
 Player::~Player()

@@ -7,12 +7,6 @@
 #define ENEMY_MAX (30)
 
 
-typedef struct
-{
-	VECTOR m_pos;		//表示する座標
-	bool m_isActive;	//生存フラグ
-}ENEMY_DATA;
-
 class Enemy
 {
 public:
@@ -20,14 +14,31 @@ public:
 	~Enemy();
 
 	void Init();
-	void Load();
-	void Step();
+	void Load(int hndl);
+	void Step(VECTOR playerPos);
 	void Draw();
 	void Exit();
 
+	// 座標取得
+	VECTOR GetPotision() { return m_pos; }
+
+	// Enemyをリクエスト
+	// @pos : どこから出現するか
+	// @speed : どの方向に進んでいくか
+	// @return : 生成成功か失敗か
+	// const参照渡し　処理コストを軽くするため
+	bool Request(const VECTOR& pos, const VECTOR& speed);
+
+	// ヒットした後の処理
+	void HitCalc(VECTOR speed);
+
 private:
+	VECTOR m_pos;
+	VECTOR m_speed;
+	VECTOR m_dir;
+	float m_rotY;
 	int m_hndl;
-	int m_waitCount;
-	ENEMY_DATA m_enemy[ENEMY_MAX];
+	bool m_isActive;
+	
 };
 

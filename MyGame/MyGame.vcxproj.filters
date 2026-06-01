@@ -34,6 +34,9 @@
     <Filter Include="ソース ファイル\Game\Enemy">
       <UniqueIdentifier>{b0319c18-54e1-400c-8b19-cf30d7c24dac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Game\HitCheck">
+      <UniqueIdentifier>{53fbed30-d83f-4353-820d-7d559a7ee6e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -78,6 +81,9 @@
     <ClCompile Include="src\Game\Player\Weapon.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\HitCheck\HitCheck.cpp">
+      <Filter>ソース ファイル\Game\HitCheck</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Lib\collision.h">
@@ -118,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="src\Game\Player\Weapon.h">
       <Filter>ソース ファイル\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\HitCheck\HitCheck.h">
+      <Filter>ソース ファイル\Game\HitCheck</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

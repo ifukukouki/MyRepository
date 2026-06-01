@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="src\Game\Enemy\Enemy.cpp" />
     <ClCompile Include="src\Game\Enemy\EnemyManager.cpp" />
+    <ClCompile Include="src\Game\HitCheck\HitCheck.cpp" />
     <ClCompile Include="src\Game\Map\Map.cpp" />
     <ClCompile Include="src\Game\Player\Player.cpp" />
     <ClCompile Include="src\Game\Player\Weapon.cpp" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="src\Game\Enemy\Enemy.h" />
     <ClInclude Include="src\Game\Enemy\EnemyManager.h" />
+    <ClInclude Include="src\Game\HitCheck\HitCheck.h" />
     <ClInclude Include="src\Game\Map\Map.h" />
     <ClInclude Include="src\Game\Player\Player.h" />
     <ClInclude Include="src\Game\Player\Weapon.h" />

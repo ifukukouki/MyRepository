@@ -40,7 +40,5 @@ private:
 	WEAPON_DATA m_weapon_down[WEAPON_MAX];	// ‰º‚ÉŒ‚‚Âˆ—
 	WEAPON_DATA m_weapon_left[WEAPON_MAX];	// ¶‚ÉŒ‚‚Âˆ—
 	WEAPON_DATA m_weapon_right[WEAPON_MAX];	// ‰E‚ÉŒ‚‚Âˆ—
-
-	Player m_player;
 };
 

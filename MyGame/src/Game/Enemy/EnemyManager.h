@@ -2,6 +2,7 @@
 
 #include <DxLib.h>
 #include "Enemy.h"
+#include "../Player/Player.h"
 
 
 class EnemyManager
@@ -14,8 +15,12 @@ public:
 	void Draw();
 	void Request();
 
+	Enemy& GetEnemy(int id) { return m_enemy[id]; }
+
 private:
-
-
+	Enemy m_enemy[ENEMY_MAX];
+	
+	Player m_player;
+	int m_waitTime;
 };
 
