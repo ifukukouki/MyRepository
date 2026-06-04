@@ -27,6 +27,7 @@ public:
 	// Œ»İ‚ÌÀ•W‚ğæ“¾
 	int GetPosX() { return m_pos.x; }
 	int GetPosY() { return m_pos.y; }
+	VECTOR GetPos() { return m_pos; }
 
 	// ˆÚ“®Œã‚ÌÀ•W‚ğİ’è
 	void SetNextPosX(int _posX);

@@ -75,9 +75,6 @@
     <ClCompile Include="src\Game\Enemy\Enemy.cpp">
       <Filter>ソース ファイル\Game\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Enemy\EnemyManager.cpp">
-      <Filter>ソース ファイル\Game\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Player\Weapon.cpp">
       <Filter>ソース ファイル\Game\Player</Filter>
     </ClCompile>
@@ -117,9 +114,6 @@
       <Filter>ソース ファイル\Game\Sound</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Enemy\Enemy.h">
-      <Filter>ソース ファイル\Game\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Game\Enemy\EnemyManager.h">
       <Filter>ソース ファイル\Game\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="src\Game\Player\Weapon.h">

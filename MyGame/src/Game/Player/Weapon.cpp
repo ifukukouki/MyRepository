@@ -57,8 +57,8 @@ void Weapon::Step(int playerPosX, int playerPosY, float playerAngle, int playerA
 	{
 		for (int i = 0; i < WEAPON_MAX; i++)
 		{
-			// 生存フラグとプレイヤーのアニメーションで撃つ方向を決める
-			// 上
+			// 生存フラグを確認しプレイヤーのアニメーションで撃つ方向を決める
+			// 上方向
 			if (m_weapon_up[i].m_isActive == false && playerAnime == 1)
 			{
 				m_weapon_up[i].m_isActive = true;
@@ -69,7 +69,7 @@ void Weapon::Step(int playerPosX, int playerPosY, float playerAngle, int playerA
 				break;
 			}
 
-			// 下
+			// 下方向
 			if (m_weapon_down[i].m_isActive == false && playerAnime == 2)
 			{
 				m_weapon_down[i].m_isActive = true;
@@ -80,7 +80,7 @@ void Weapon::Step(int playerPosX, int playerPosY, float playerAngle, int playerA
 				break;
 			}
 
-			// 左
+			// 左方向
 			if (m_weapon_left[i].m_isActive == false && playerAnime == 3)
 			{
 				m_weapon_left[i].m_isActive = true;
@@ -91,7 +91,7 @@ void Weapon::Step(int playerPosX, int playerPosY, float playerAngle, int playerA
 				break;
 			}
 
-			// 右
+			// 右方向
 			if (m_weapon_right[i].m_isActive == false && playerAnime == 4)
 			{
 				m_weapon_right[i].m_isActive = true;

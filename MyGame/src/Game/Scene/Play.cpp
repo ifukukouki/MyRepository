@@ -146,7 +146,7 @@ void Play::Step()
 		m_weapon.LeftShot(i);
 		m_weapon.RightShot(i);
 	}
-	m_enemy.Step();
+	m_enemy.Step(m_player.GetPos());
 }
 
 
