@@ -20,6 +20,9 @@ public:
 	void Draw();
 	void Exit();
 
+	// 生存フラグを取得
+	bool isActive() { return m_isActive; }
+
 	// 移動後の座標を取得
 	int GetNextPosX() { return m_nextPosX; }
 	int GetNextPosY() { return m_nextPosY; }
@@ -47,6 +50,7 @@ public:
 
 private:
 	VECTOR m_pos;
+	bool m_isActive;
 
 	// 移動後の座標
 	int m_nextPosX;

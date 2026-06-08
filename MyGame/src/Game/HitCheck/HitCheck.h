@@ -5,9 +5,8 @@
 #include "../Enemy/Enemy.h"
 
 
-//class HitCheck
-//{
-//public:
-//	static void CheckHitPlayerToEnemy(Player& player, EnemyManager& enemy);
-//
-//};
+class HitCheck
+{
+public:
+	static void CheckHitWeaponToEnemy(Weapon& weapon, Enemy& enemy);
+};

@@ -3,8 +3,7 @@
 #include "../../Lib/fade.h"
 #include "../Sound/Sound.h"
 #include "../../Lib/collision.h"
-
-
+#include "../HitCheck/HitCheck.h"
 
 
 //--------------------------------
@@ -147,6 +146,11 @@ void Play::Step()
 		m_weapon.RightShot(i);
 	}
 	m_enemy.Step(m_player.GetPos());
+
+	// “–‚½‚è”»’è==============================
+	HitCheck::CheckHitWeaponToEnemy(m_weapon, m_enemy);
+
+	//=========================================
 }
 
 
