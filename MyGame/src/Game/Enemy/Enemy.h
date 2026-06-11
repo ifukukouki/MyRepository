@@ -2,18 +2,21 @@
 
 
 #include <DxLib.h>
+#include "../Player/Player.h"
 
 
-#define ENEMY_MAX (10)
+#define ENEMY_MAX (50)
 
 
 typedef struct {
 	VECTOR m_pos;
 	VECTOR m_dir;
 	bool m_isActive;
+
+	bool isActive() { return m_isActive; }
 }ENEMY_DATA;
 
-class Enemy
+class Enemy : public Player
 {
 public:
 	Enemy();
@@ -26,10 +29,10 @@ public:
 	void Exit();
 
 	// 敵を呼び出す
-	bool Request();
-
-	//// 生存フラグを取得
-	//bool isActive() { return m_enemy->m_isActive; }
+	bool Request1();	// 上から出現
+	bool Request2();	// 下から出現
+	bool Request3();	// 左から出現
+	bool Request4();	// 右から出現
 
 	//// 座標取得
 	//VECTOR GetPos() { return m_enemy->m_pos; }

@@ -59,6 +59,7 @@ int Play::Loop()
 
 	case Play::MAIN:
 		Step();
+		// エンターキーを押すと
 		if (CheckHitKey(KEY_INPUT_RETURN))
 		{
 			// フェードアウト開始

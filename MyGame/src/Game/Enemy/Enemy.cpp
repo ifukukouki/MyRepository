@@ -71,7 +71,10 @@ void Enemy::Step(VECTOR playerPos)
 		}
 	}
 	m_waitCount--;
-	Request();
+	//Request1();
+	Request2();
+	//Request3();
+	//Request4();
 }
 
 
@@ -100,7 +103,8 @@ void Enemy::Exit()
 
 
 // 敵を呼び出す
-bool Enemy::Request()
+// 上から出現
+bool Enemy::Request1()
 {
 	if (m_waitCount < 0)
 	{
@@ -113,7 +117,7 @@ bool Enemy::Request()
 
 			m_enemy[i].m_isActive = true;
 			m_enemy[i].m_pos.x = (float)GetRand(1280) - 0.0f;
-			m_enemy[i].m_pos.y = 10;
+			m_enemy[i].m_pos.y = 10.0f;
 
 			m_waitCount = WAIT_COUNT;
 			break;
@@ -121,5 +125,70 @@ bool Enemy::Request()
 	}
 	return true;
 }
+// 下から出現
+bool Enemy::Request2()
+{
+	if (m_waitCount < 0)
+	{
+		for (int i = 0; i < ENEMY_MAX; i++)
+		{
+			if (m_enemy[i].m_isActive == true)
+			{
+				continue;
+			}
 
+			m_enemy[i].m_isActive = true;
+			m_enemy[i].m_pos.x = (float)GetRand(1280) - 0.0f;
+			m_enemy[i].m_pos.y = 630.0f;
+
+			m_waitCount = WAIT_COUNT;
+			break;
+		}
+	}
+	return true;
+}
+// 左から出現
+bool Enemy::Request3()
+{
+	if (m_waitCount < 0)
+	{
+		for (int i = 0; i < ENEMY_MAX; i++)
+		{
+			if (m_enemy[i].m_isActive == true)
+			{
+				continue;
+			}
+
+			m_enemy[i].m_isActive = true;
+			m_enemy[i].m_pos.x = 10.0f;
+			m_enemy[i].m_pos.y = (float)GetRand(640) - 0.0f;
+
+			m_waitCount = WAIT_COUNT;
+			break;
+		}
+	}
+	return true;
+}
+// 右から出現
+bool Enemy::Request4()
+{
+	if (m_waitCount < 0)
+	{
+		for (int i = 0; i < ENEMY_MAX; i++)
+		{
+			if (m_enemy[i].m_isActive == true)
+			{
+				continue;
+			}
+
+			m_enemy[i].m_isActive = true;
+			m_enemy[i].m_pos.x = 1270.0f;
+			m_enemy[i].m_pos.y = (float)GetRand(640) - 0.0f;
+
+			m_waitCount = WAIT_COUNT;
+			break;
+		}
+	}
+	return true;
+}
 

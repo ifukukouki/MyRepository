@@ -8,5 +8,8 @@
 class HitCheck
 {
 public:
+	// •Ší‚Æ“G‚Ì“–‚½‚è”»’è
 	static void CheckHitWeaponToEnemy(Weapon& weapon, Enemy& enemy);
+	// ƒvƒŒƒCƒ„[‚Æ“G‚Ì“–‚½‚è”»’è
+	static void CheckHitPlayerToEnemy(Player& player, Enemy& enemy);
 };

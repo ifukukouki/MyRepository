@@ -48,6 +48,9 @@ public:
 	// プレイヤーのアニメを取得
 	int GetPlayerAnime() { return anime; }
 
+	// プレイヤーの生存情報を取得
+	bool isActive() { return m_isActive; }
+
 private:
 	VECTOR m_pos;
 	bool m_isActive;

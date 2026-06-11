@@ -256,8 +256,11 @@ void Player::Draw()
 	AnimeKind current_anime = currentAnimeKind;
 	int current_index = currentAnimeIndex;
 
-	DrawRotaGraph((int)m_pos.x, (int)m_pos.y, 1.0, 0.0,
-		animeImgHundle[current_anime][current_index], true);
+	if (m_isActive == true)
+	{
+		DrawRotaGraph((int)m_pos.x, (int)m_pos.y, 1.0, 0.0,
+			animeImgHundle[current_anime][current_index], true);
+	}
 }
 
 
