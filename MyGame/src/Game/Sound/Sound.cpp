@@ -32,11 +32,11 @@ void Sound::Load()
 	bool ret = true;
 	//–‚‰¤°‚©‚ç‚Á‚Ä‚­‚éŠg’£ƒtƒ@ƒCƒ‹‚Íogg‚©wav‚ª‚¨‚·‚·‚ß
 	const char* filePath[SOUND_NUM] = {
-		"data/sound/bgm00.mp3",
-		"data/sound/se_plshot.mp3",
-		"data/sound/se_explore.mp3",
-		"data/sound/title.mp3",
-		"data/sound/game_end.mp3"
+		"data/Sound/bgm00.mp3",
+		"data/Sound/se_plshot.mp3",
+		"data/Sound/se_explore.mp3",
+		"data/Sound/title.mp3",
+		"data/Sound/game_end.mp3"
 	};
 
 	for (int i = 0; i < SOUND_NUM; i++)

@@ -71,8 +71,8 @@ void Enemy::Step(VECTOR playerPos)
 		}
 	}
 	m_waitCount--;
-	//Request1();
-	Request2();
+	Request1();
+	//Request2();
 	//Request3();
 	//Request4();
 }

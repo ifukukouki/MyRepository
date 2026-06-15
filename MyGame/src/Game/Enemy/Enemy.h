@@ -13,7 +13,6 @@ typedef struct {
 	VECTOR m_dir;
 	bool m_isActive;
 
-	bool isActive() { return m_isActive; }
 }ENEMY_DATA;
 
 class Enemy : public Player

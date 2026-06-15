@@ -39,11 +39,13 @@
 
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
 static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
+static const float PLAYER_RADIUS = 1.0f;
+static const int PLAYER_HP = 1;
 
 
 Player::Player() :m_pos(ZERO), m_nextPosX(0), m_nextPosY(0), animeImgHundle(), animeUsedNum(), 
 					currentAnimeKind(), currentAnimeIndex(0), currentAnimeTime(0.0f), angle(0.0f),
-					anime(0), m_isActive(true)
+					anime(0), m_isActive(true), m_radius(0.0f), m_hp(0)
 {
 }
 Player::~Player()
@@ -54,6 +56,8 @@ Player::~Player()
 void Player::Init()
 {
 	m_pos = START_POS;
+	m_radius = PLAYER_RADIUS;
+	m_hp = PLAYER_HP;
 
 	// ※m_nextPosを使っている理由は
 	// 　十字キー操作以外で移動したときにどの方向に

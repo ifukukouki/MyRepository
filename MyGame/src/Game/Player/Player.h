@@ -20,9 +20,6 @@ public:
 	void Draw();
 	void Exit();
 
-	// 生存フラグを取得
-	bool isActive() { return m_isActive; }
-
 	// 移動後の座標を取得
 	int GetNextPosX() { return m_nextPosX; }
 	int GetNextPosY() { return m_nextPosY; }
@@ -31,6 +28,15 @@ public:
 	int GetPosX() { return m_pos.x; }
 	int GetPosY() { return m_pos.y; }
 	VECTOR GetPos() { return m_pos; }
+
+	// プレイヤーの生存情報を取得
+	bool isActive() { return m_isActive; }
+
+	// 当たり判定用の半径を取得
+	float GetRadius() { return m_radius; }
+
+	// プレイヤーの体力取得
+	int GetHp() { return m_hp; }
 
 	// 移動後の座標を設定
 	void SetNextPosX(int _posX);
@@ -48,12 +54,11 @@ public:
 	// プレイヤーのアニメを取得
 	int GetPlayerAnime() { return anime; }
 
-	// プレイヤーの生存情報を取得
-	bool isActive() { return m_isActive; }
-
 private:
-	VECTOR m_pos;
-	bool m_isActive;
+	VECTOR m_pos;		// 座標
+	bool m_isActive;	// 生存フラグ
+	float m_radius;		// 半径
+	int m_hp;			// 体力
 
 	// 移動後の座標
 	int m_nextPosX;

@@ -150,6 +150,7 @@ void Play::Step()
 
 	// “–‚½‚è”»’è==============================
 	HitCheck::CheckHitWeaponToEnemy(m_weapon, m_enemy);
+	HitCheck::CheckHitPlayerToEnemy(m_player, m_enemy);
 
 	//=========================================
 }

@@ -1,11 +1,12 @@
 
 #include "HitCheck.h"
 #include "../../Lib/collision.h"
+#include "../Sound/Sound.h"
 
 
-#define WEAPON_SIZE (16)
-#define ENEMY_SIZE (16)
-#define PLAYER_SIZE (16)
+#define WEAPON_SIZE (16)	// 武器の当たり判定サイズ
+#define ENEMY_SIZE (16)		// 敵の当たり判定サイズ
+#define WAIT_COUNT (180)	// プレイヤーの無敵時間用（3秒）
 
 
 // 武器と敵の当たり判定
@@ -45,6 +46,9 @@ void HitCheck::CheckHitWeaponToEnemy(Weapon& weapon, Enemy& enemy)
 			if (isHit_up == true || isHit_down == true ||
 				isHit_left == true || isHit_right == true)
 			{
+				// 効果音再生
+				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+
 				// それぞれの当たった時の処理
 				if (isHit_up == true)
 				{
@@ -82,45 +86,39 @@ void HitCheck::CheckHitPlayerToEnemy(Player& player, Enemy& enemy)
 	}
 
 	// 敵の数だけループ
-	for (int enemyID = 0; enemyID < ENEMY_MAX; enemyID++)
+	for (int enemyIndex = 0; enemyIndex < ENEMY_MAX; enemyIndex++)
 	{
 		// 敵一体分の情報を取得し生存確認
-		ENEMY_DATA& oneEnemy = enemy.GetEnemy(enemyID);
+		ENEMY_DATA& oneEnemy = enemy.GetEnemy(enemyIndex);
 		// 敵が生きていなかったらそれはとばす
-		if (oneEnemy.isActive() == false)continue;
+		if (oneEnemy.m_isActive == false)continue;
 
-		// それぞれの座標と半径を取得
-		VECTOR playerPos = player.GetCenter();
+		// プレイヤーの座標と半径を取得
+		VECTOR playerPos = player.GetPos();
 		float playerRadius = player.GetRadius();
-		VECTOR enemyPos = oneEnemy.GetCenter();
-		float enemyRadius = oneEnemy.GetRadius();
 
-		// 二点間の距離を取得
-		VECTOR enVec = VSub(enemyPos, playerPos);	// Enemyのノックバック用
-		VECTOR plVec = VSub(enemyPos, playerPos);	// プレイヤーのノックバック用
-		float len = VSize(enVec);
+		// プレイヤーの体力と生存フラグを取得
+		int playerHp = player.GetHp();
+		bool playerFlg = player.isActive();
 
 		// 当たり判定開始
-		bool isHit = Collision::CheckHitSphereToSphere(playerPos, playerRadius, enemyPos, enemyRadius);
+		bool isHit = ChekHitCircleToCircle(playerPos, playerRadius, oneEnemy.m_pos, ENEMY_SIZE);
 
 		if (isHit == true)
 		{
 			// 効果音再生
-			SoundManager::Play(SoundManager::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+			Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
 
-			// あらかじめ「敵の座標-プレイヤーの座標」を計算してたので
-			// このベクトルを使用する
-			enVec = VNorm(enVec);
-			enVec.y = 0.0f;					// 上方向に飛ばす力(上に飛ばさないなら不要)
-			enVec = VScale(enVec, 1.3f);	// 全体の吹き飛ばす力をここで調整
+			// 体力を減らす
+			playerHp -= 1;
+			// 敵を消す
+			oneEnemy.m_isActive = false;
 
-			plVec = VNorm(plVec);
-			plVec.y = 1.5f;					// 上方向に飛ばす力(上に飛ばさないなら不要)
-			plVec = VScale(plVec, 1.3f);	// 全体の吹き飛ばす力をここで調整
-
-			// お互い当たった！！
-			player.HitCalc(plVec);
-			oneEnemy.HitCalc(enVec);
+			if (playerHp <= 0)
+			{
+				playerFlg = false;
+			}
 		}
+	}
 }
 
