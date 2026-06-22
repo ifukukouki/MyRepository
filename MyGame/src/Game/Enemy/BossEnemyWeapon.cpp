@@ -1,32 +1,30 @@
 
-#include "Weapon.h"
+#include "BossEnemyWeapon.h"
 #include "../../Lib/input.h"
 
 
 #define SCREEN_SIZE_X (1280.0f)
 #define SCREEN_SIZE_Y (640.0f)
-#define WEAPON_SPEED (5.0f)	// 武器の移動速度
-
-// 武器画像のファイルパス
-#define WEAPON_IMG_PATH	"data/Weapon/tsurugi_bronze_red.png"
+#define BOSSENEMY_WEAPON_SPEED (3.5f)	// 武器の移動速度
+#define BOSSENEMY_WEAPON_IMG_PATH	"data/Enemy/crystal_sphere_red.png"	// 武器画像のファイルパス
 
 
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
 
 
-Weapon::Weapon()
+BossEnemyWeapon::BossEnemyWeapon()
 {
 }
-Weapon::~Weapon()
+BossEnemyWeapon::~BossEnemyWeapon()
 {
 }
 
 
 // 初期化
-void Weapon::Init()
+void BossEnemyWeapon::Init()
 {
 	m_hndl = -1;
-	for (int i = 0; i < WEAPON_MAX; i++)
+	for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
 	{
 		m_weapon_up[i].m_angle = 0.0f;
 		m_weapon_up[i].m_isActive = false;
@@ -44,72 +42,65 @@ void Weapon::Init()
 
 
 // 画像ロード
-void Weapon::Load()
+void BossEnemyWeapon::Load()
 {
-	m_hndl = LoadGraph(WEAPON_IMG_PATH);
+	m_hndl = LoadGraph(BOSSENEMY_WEAPON_IMG_PATH);
 }
 
 
 // 毎フレーム処理
-void Weapon::Step(int playerPosX, int playerPosY, float playerAngle, int playerAnime)
+void BossEnemyWeapon::Step(int bossPosX, int bossPosY)
 {
-	if (InputKey::IsPushKeyTrg(KEY_INPUT_Z) || InputKey::IsPushKeyTrg(KEY_INPUT_SPACE))
+	for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
 	{
-		for (int i = 0; i < WEAPON_MAX; i++)
+		// 生存フラグを確認しプレイヤーのアニメーションで撃つ方向を決める
+		// 上方向
+		if (m_weapon_up[i].m_isActive == false)
 		{
-			// 生存フラグを確認しプレイヤーのアニメーションで撃つ方向を決める
-			// 上方向
-			if (m_weapon_up[i].m_isActive == false && playerAnime == 1)
-			{
-				m_weapon_up[i].m_isActive = true;
-				m_weapon_up[i].m_pos.x = playerPosX;
-				m_weapon_up[i].m_pos.y = playerPosY;
-				m_weapon_up[i].m_angle = playerAngle;
+			m_weapon_up[i].m_isActive = true;
+			m_weapon_up[i].m_pos.x = bossPosX;
+			m_weapon_up[i].m_pos.y = bossPosY;
 
-				break;
-			}
+			break;
+		}
 
-			// 下方向
-			if (m_weapon_down[i].m_isActive == false && playerAnime == 2)
-			{
-				m_weapon_down[i].m_isActive = true;
-				m_weapon_down[i].m_pos.x = playerPosX;
-				m_weapon_down[i].m_pos.y = playerPosY;
-				m_weapon_down[i].m_angle = playerAngle;
+		// 下方向
+		if (m_weapon_down[i].m_isActive == false)
+		{
+			m_weapon_down[i].m_isActive = true;
+			m_weapon_down[i].m_pos.x = bossPosX;
+			m_weapon_down[i].m_pos.y = bossPosY;
 
-				break;
-			}
+			break;
+		}
 
-			// 左方向
-			if (m_weapon_left[i].m_isActive == false && playerAnime == 3)
-			{
-				m_weapon_left[i].m_isActive = true;
-				m_weapon_left[i].m_pos.x = playerPosX;
-				m_weapon_left[i].m_pos.y = playerPosY;
-				m_weapon_left[i].m_angle = playerAngle;
+		// 左方向
+		if (m_weapon_left[i].m_isActive == false)
+		{
+			m_weapon_left[i].m_isActive = true;
+			m_weapon_left[i].m_pos.x = bossPosX;
+			m_weapon_left[i].m_pos.y = bossPosY;
 
-				break;
-			}
+			break;
+		}
 
-			// 右方向
-			if (m_weapon_right[i].m_isActive == false && playerAnime == 4)
-			{
-				m_weapon_right[i].m_isActive = true;
-				m_weapon_right[i].m_pos.x = playerPosX;
-				m_weapon_right[i].m_pos.y = playerPosY;
-				m_weapon_right[i].m_angle = playerAngle;
+		// 右方向
+		if (m_weapon_right[i].m_isActive == false)
+		{
+			m_weapon_right[i].m_isActive = true;
+			m_weapon_right[i].m_pos.x = bossPosX;
+			m_weapon_right[i].m_pos.y = bossPosY;
 
-				break;
-			}
+			break;
 		}
 	}
 }
 
 
 // 画像描画
-void Weapon::Draw()
+void BossEnemyWeapon::Draw()
 {
-	for (int i = 0; i < WEAPON_MAX; i++)
+	for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
 	{
 		// フラグがオンなら描画
 		if (m_weapon_up[i].m_isActive == true)
@@ -139,7 +130,7 @@ void Weapon::Draw()
 
 
 // 終了処理
-void Weapon::Exit()
+void BossEnemyWeapon::Exit()
 {
 	// 画像を破棄
 	DeleteGraph(m_hndl);
@@ -147,11 +138,11 @@ void Weapon::Exit()
 
 
 // 上に飛ぶ処理
-void Weapon::UpShot(int i)
+void BossEnemyWeapon::UpShot(int i)
 {
 	if (m_weapon_up[i].m_isActive == true)
 	{
-		m_weapon_up[i].m_pos.y -= WEAPON_SPEED;
+		m_weapon_up[i].m_pos.y -= BOSSENEMY_WEAPON_SPEED;
 		if (m_weapon_up[i].m_pos.y < 0)
 		{
 			m_weapon_up[i].m_isActive = false;
@@ -159,11 +150,11 @@ void Weapon::UpShot(int i)
 	}
 }
 // 下に飛ぶ処理
-void Weapon::DownShot(int i)
+void BossEnemyWeapon::DownShot(int i)
 {
 	if (m_weapon_down[i].m_isActive == true)
 	{
-		m_weapon_down[i].m_pos.y += WEAPON_SPEED;
+		m_weapon_down[i].m_pos.y += BOSSENEMY_WEAPON_SPEED;
 		if (m_weapon_down[i].m_pos.y > SCREEN_SIZE_Y)
 		{
 			m_weapon_down[i].m_isActive = false;
@@ -171,11 +162,11 @@ void Weapon::DownShot(int i)
 	}
 }
 // 左に飛ぶ処理
-void Weapon::LeftShot(int i)
+void BossEnemyWeapon::LeftShot(int i)
 {
 	if (m_weapon_left[i].m_isActive == true)
 	{
-		m_weapon_left[i].m_pos.x -= WEAPON_SPEED;
+		m_weapon_left[i].m_pos.x -= BOSSENEMY_WEAPON_SPEED;
 		if (m_weapon_left[i].m_pos.x < 0)
 		{
 			m_weapon_left[i].m_isActive = false;
@@ -183,11 +174,11 @@ void Weapon::LeftShot(int i)
 	}
 }
 // 右に飛ぶ処理
-void Weapon::RightShot(int i)
+void BossEnemyWeapon::RightShot(int i)
 {
 	if (m_weapon_right[i].m_isActive == true)
 	{
-		m_weapon_right[i].m_pos.x += WEAPON_SPEED;
+		m_weapon_right[i].m_pos.x += BOSSENEMY_WEAPON_SPEED;
 		if (m_weapon_right[i].m_pos.x > SCREEN_SIZE_X)
 		{
 			m_weapon_right[i].m_isActive = false;

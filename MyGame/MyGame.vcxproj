@@ -139,6 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game\Enemy\BigEnemy.cpp" />
+    <ClCompile Include="src\Game\Enemy\BossEnemy.cpp" />
+    <ClCompile Include="src\Game\Enemy\BossEnemyWeapon.cpp" />
     <ClCompile Include="src\Game\Enemy\Enemy.cpp" />
     <ClCompile Include="src\Game\HitCheck\HitCheck.cpp" />
     <ClCompile Include="src\Game\Map\Map.cpp" />
@@ -155,6 +158,9 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Game\Enemy\BigEnemy.h" />
+    <ClInclude Include="src\Game\Enemy\BossEnemy.h" />
+    <ClInclude Include="src\Game\Enemy\BossEnemyWeapon.h" />
     <ClInclude Include="src\Game\Enemy\Enemy.h" />
     <ClInclude Include="src\Game\HitCheck\HitCheck.h" />
     <ClInclude Include="src\Game\Map\Map.h" />

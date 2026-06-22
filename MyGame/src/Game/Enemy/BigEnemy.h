@@ -4,21 +4,22 @@
 #include <DxLib.h>
 
 
-#define ENEMY_MAX (40)
+#define BIGENEMY_MAX (2)
 
 
 typedef struct {
 	VECTOR m_pos;
 	VECTOR m_dir;
 	bool m_isActive;
+	int m_hp;	// 体力
 
-}ENEMY_DATA;
+}BIGENEMY_DATA;
 
-class Enemy
+class BigEnemy
 {
 public:
-	Enemy();
-	~Enemy();
+	BigEnemy();
+	~BigEnemy();
 
 	void Init();
 	void Load();
@@ -41,14 +42,13 @@ public:
 	// 敵１体分の情報取得
 	// @id : 配列番号
 	// 参照で取得
-	ENEMY_DATA& GetEnemy(int id) { return m_enemy[id]; }
+	BIGENEMY_DATA& GetBigEnemy(int id) { return m_enemy[id]; }
 
 private:
 	int m_hndl;
 	int m_waitCount;
-	int m_requestFlg;		// 敵の出現場所を変更する用（１＝上から出現、２＝下、３＝左、４＝右）
-	int m_enemySpawnCount;	// 敵が何回出現したか
-	ENEMY_DATA m_enemy[ENEMY_MAX];
+	int m_requestFlg;	// 敵の出現場所を変更する用（１＝上から出現、２＝下、３＝左、４＝右）
+	BIGENEMY_DATA m_enemy[BIGENEMY_MAX];
 
 };
 

@@ -102,6 +102,9 @@ void Play::Draw()
 	m_player.Draw();
 	m_weapon.Draw();
 	m_enemy.Draw();
+	m_bigEnemy.Draw();
+	m_bossEnemy.Draw();
+	m_bossEnemyWeapon.Draw();
 }
 
 
@@ -114,6 +117,9 @@ void Play::Init()
 	m_player.Init();
 	m_weapon.Init();
 	m_enemy.Init();
+	m_bigEnemy.Init();
+	m_bossEnemy.Init();
+	m_bossEnemyWeapon.Init();
 }
 
 
@@ -126,6 +132,9 @@ void Play::Load()
 	m_player.Load();
 	m_weapon.Load();
 	m_enemy.Load();
+	m_bigEnemy.Load();
+	m_bossEnemy.Load();
+	m_bossEnemyWeapon.Load();
 }
 
 
@@ -137,8 +146,7 @@ void Play::Step()
 	m_player.Step();
 	MapCollision();
 	m_player.UpdatePos();
-	m_weapon.Step(m_player.GetNextPosX(), m_player.GetNextPosY(),
-					m_player.GetPlayerAngle(), m_player.GetPlayerAnime());
+	m_weapon.Step(m_player.GetNextPosX(), m_player.GetNextPosY(), m_player.GetPlayerAngle(), m_player.GetPlayerAnime());
 	for (int i = 0; i < WEAPON_MAX; i++)
 	{
 		m_weapon.UpShot(i);
@@ -147,10 +155,22 @@ void Play::Step()
 		m_weapon.RightShot(i);
 	}
 	m_enemy.Step(m_player.GetPos());
+	m_bigEnemy.Step(m_player.GetPos());
+	m_bossEnemy.Step(m_player.GetPos());
+	m_bossEnemyWeapon.Step(m_bossEnemy.GetPosX(), m_bossEnemy.GetPosY());
+	for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
+	{
+		m_bossEnemyWeapon.UpShot(i);
+		m_bossEnemyWeapon.DownShot(i);
+		m_bossEnemyWeapon.LeftShot(i);
+		m_bossEnemyWeapon.RightShot(i);
+	}
 
 	// “–‚½‚è”»’è==============================
 	HitCheck::CheckHitWeaponToEnemy(m_weapon, m_enemy);
 	HitCheck::CheckHitPlayerToEnemy(m_player, m_enemy);
+	HitCheck::CheckHitWeaponToBigEnemy(m_weapon, m_bigEnemy);
+	HitCheck::CheckHitPlayerToBigEnemy(m_player, m_bigEnemy);
 
 	//=========================================
 }
@@ -165,6 +185,9 @@ void Play::Exit()
 	m_player.Exit();
 	m_weapon.Exit();
 	m_enemy.Exit();
+	m_bigEnemy.Exit();
+	m_bossEnemy.Exit();
+	m_bossEnemyWeapon.Exit();
 }
 
 

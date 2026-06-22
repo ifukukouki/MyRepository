@@ -5,6 +5,9 @@
 #include "../Player/Player.h"
 #include "../Player/Weapon.h"
 #include "../Enemy/Enemy.h"
+#include "../Enemy/BigEnemy.h"
+#include "../Enemy/BossEnemy.h"
+#include "../Enemy/BossEnemyWeapon.h"
 
 
 // ゲーム本編を管理するクラス
@@ -24,10 +27,13 @@ private:
 
 	tagSCENE m_state;	// 現在の状態遷移
 
-	Map m_map;			// マップ
-	Player m_player;	// プレイヤー
-	Weapon m_weapon;	// プレイヤーの武器
-	Enemy m_enemy;		// 敵
+	Map m_map;				// マップ
+	Player m_player;		// プレイヤー
+	Weapon m_weapon;		// プレイヤーの武器
+	Enemy m_enemy;			// 敵
+	BigEnemy m_bigEnemy;	// 大きい敵
+	BossEnemy m_bossEnemy;	// ボス
+	BossEnemyWeapon m_bossEnemyWeapon;	// ボスの武器
 
 	// マップの当たり判定
 	void MapCollision();

@@ -40,7 +40,7 @@
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
 static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
 static const float PLAYER_RADIUS = 1.0f;
-static const int PLAYER_HP = 1;
+static const int HP = 1;
 
 
 Player::Player() :m_pos(ZERO), m_nextPosX(0), m_nextPosY(0), animeImgHundle(), animeUsedNum(), 
@@ -57,7 +57,7 @@ void Player::Init()
 {
 	m_pos = START_POS;
 	m_radius = PLAYER_RADIUS;
-	m_hp = PLAYER_HP;
+	m_hp = HP;
 
 	// ※m_nextPosを使っている理由は
 	// 　十字キー操作以外で移動したときにどの方向に
@@ -265,6 +265,9 @@ void Player::Draw()
 		DrawRotaGraph((int)m_pos.x, (int)m_pos.y, 1.0, 0.0,
 			animeImgHundle[current_anime][current_index], true);
 	}
+
+	// 当たり判定表示
+	DrawCircle(m_pos.x, m_pos.y, m_radius, GetColor(255, 0, 0), false);
 }
 
 

@@ -81,6 +81,15 @@
     <ClCompile Include="src\Game\HitCheck\HitCheck.cpp">
       <Filter>ソース ファイル\Game\HitCheck</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Enemy\BigEnemy.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Enemy\BossEnemy.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Enemy\BossEnemyWeapon.cpp">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Lib\collision.h">
@@ -121,6 +130,15 @@
     </ClInclude>
     <ClInclude Include="src\Game\HitCheck\HitCheck.h">
       <Filter>ソース ファイル\Game\HitCheck</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Enemy\BigEnemy.h">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Enemy\BossEnemy.h">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game\Enemy\BossEnemyWeapon.h">
+      <Filter>ソース ファイル\Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
