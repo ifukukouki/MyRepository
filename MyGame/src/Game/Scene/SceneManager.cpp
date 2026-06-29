@@ -1,7 +1,7 @@
 
 #include "SceneManager.h"
 #include "../../Lib/fade.h"
-#include "../Sound/Sound.h"
+#include "../../Lib/Sound.h"
 
 
 //--------------------------------

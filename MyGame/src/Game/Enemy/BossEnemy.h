@@ -1,8 +1,6 @@
 #pragma once
 
-
 #include <DxLib.h>
-#include "BossEnemyWeapon.h"
 
 
 #define BOSSENEMY_MAX (1)
@@ -35,6 +33,9 @@ public:
 	int GetPosX() { return m_enemy->m_pos.x; }
 	int GetPosY() { return m_enemy->m_pos.y; }
 
+	// 生存フラグを取得
+	bool GetisActive() { return m_enemy->m_isActive; }
+
 	// 敵１体分の情報取得
 	// @id : 配列番号
 	// 参照で取得
@@ -45,7 +46,8 @@ private:
 	int m_waitCount;
 	BOSSENEMY_DATA m_enemy[BOSSENEMY_MAX];
 
-	BossEnemyWeapon m_bossEnemyWeapon;
-
+public:
+	// ボスを倒したか判断用
+	bool m_clearFlg;
 };
 

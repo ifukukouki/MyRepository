@@ -1,10 +1,9 @@
 #pragma once
 
-
 #include <DxLib.h>
 
 
-#define BIGENEMY_MAX (2)
+#define BIGENEMY_MAX (5)
 
 
 typedef struct {

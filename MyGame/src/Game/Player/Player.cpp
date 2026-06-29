@@ -267,7 +267,7 @@ void Player::Draw()
 	}
 
 	// “–‚½‚è”»’è•\Ž¦
-	DrawCircle(m_pos.x, m_pos.y, m_radius, GetColor(255, 0, 0), false);
+	//DrawCircle(m_pos.x, m_pos.y, m_radius, GetColor(255, 0, 0), false);
 }
 
 

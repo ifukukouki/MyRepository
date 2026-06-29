@@ -14,7 +14,7 @@ static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
 static const int HP = 100;
 
 
-BossEnemy::BossEnemy() :m_hndl(-1), m_waitCount(0), m_enemy()
+BossEnemy::BossEnemy() :m_hndl(-1), m_waitCount(0), m_enemy(), m_clearFlg(false)
 {
 }
 BossEnemy::~BossEnemy()
@@ -25,7 +25,7 @@ BossEnemy::~BossEnemy()
 // 初期化
 void BossEnemy::Init()
 {
-	m_waitCount = 600;
+	m_waitCount = WAIT_COUNT;
 	for (int i = 0; i < BOSSENEMY_MAX; i++)
 	{
 		m_enemy[i].m_pos = ZERO;
@@ -49,6 +49,10 @@ void BossEnemy::Load()
 // 毎フレーム処理
 void BossEnemy::Step(VECTOR playerPos)
 {
+	// 10秒たったらボス出現
+	m_waitCount--;
+	Request();
+
 	for (int i = 0; i < BOSSENEMY_MAX; i++)
 	{
 		if (m_enemy[i].m_isActive == false)
@@ -64,10 +68,6 @@ void BossEnemy::Step(VECTOR playerPos)
 		m_enemy[i].m_pos = VAdd(m_enemy[i].m_pos, m_enemy[i].m_dir);
 		//----------------------------------------------------------
 
-		// 弾を発射する処理============================================
-		m_bossEnemyWeapon.Step(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y);
-		//=============================================================
-
 		// 画面外に出たら消す
 		if (m_enemy[i].m_pos.x < 0.0f || m_enemy[i].m_pos.x > SCREEN_SIZE_X ||
 			m_enemy[i].m_pos.y < 0.0f || m_enemy[i].m_pos.y > SCREEN_SIZE_Y)
@@ -75,9 +75,6 @@ void BossEnemy::Step(VECTOR playerPos)
 			m_enemy[i].m_isActive = false;
 		}
 	}
-
-	m_waitCount--;
-	Request();
 }
 
 
@@ -88,10 +85,10 @@ void BossEnemy::Draw()
 	{
 		if (m_enemy[i].m_isActive == true && m_enemy[i].m_hp >= 1)
 		{
-			DrawRotaGraph(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 0.1, 0.0, m_hndl, true);
+			DrawRotaGraph(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 0.17, 0.0, m_hndl, true);
 
 			// 当たり判定表示
-			DrawCircle(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 28, GetColor(255, 0, 0), false);
+			//DrawCircle(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 32, GetColor(255, 0, 0), false);
 		}
 	}
 }
@@ -105,6 +102,8 @@ void BossEnemy::Exit()
 		DeleteGraph(m_hndl);
 		m_hndl = -1;
 	}
+
+	m_clearFlg = false;
 }
 
 

@@ -7,7 +7,7 @@
 #define SCREEN_SIZE_Y (640.0f)
 #define BIGENEMY_IMG_PATH	"data/Enemy/character_monster_ghost_black.png"	// 敵画像のファイルパス
 #define BIGENEMY_SPEED (0.3f)	// 敵の移動速度
-#define WAIT_COUNT (600)		// 敵再出現までにかかる時間（１秒＝６０フレーム）
+#define WAIT_COUNT (300)		// 敵再出現までにかかる時間（１秒＝６０フレーム）
 
 
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
@@ -25,7 +25,7 @@ BigEnemy::~BigEnemy()
 // 初期化
 void BigEnemy::Init()
 {
-	m_waitCount = 600;
+	m_waitCount = WAIT_COUNT;
 	m_requestFlg = 1;
 	for (int i = 0; i < BIGENEMY_MAX; i++)
 	{
@@ -105,7 +105,7 @@ void BigEnemy::Draw()
 			DrawRotaGraph(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 0.1, 0.0, m_hndl, true);
 
 			// 当たり判定表示
-			DrawCircle(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 28, GetColor(255, 0, 0), false);
+			//DrawCircle(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 28, GetColor(255, 0, 0), false);
 		}
 	}
 }

@@ -2,11 +2,13 @@
 
 #include <DxLib.h>
 
+
 // 各アニメで使える画像の最大数
 #define ANIME_IMG_MAX	(3)
 
-// プレイヤー画像のサイズ
+// プレイヤーと壁の当たり判定用
 const int PLAYER_SIZE = 16;
+
 
 class Player
 {

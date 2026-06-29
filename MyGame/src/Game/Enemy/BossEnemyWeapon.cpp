@@ -7,12 +7,13 @@
 #define SCREEN_SIZE_Y (640.0f)
 #define BOSSENEMY_WEAPON_SPEED (3.5f)	// 武器の移動速度
 #define BOSSENEMY_WEAPON_IMG_PATH	"data/Enemy/crystal_sphere_red.png"	// 武器画像のファイルパス
+#define WAIT_COUNT (180)	// 弾発射までにかかる時間（１秒＝６０フレーム）
 
 
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
 
 
-BossEnemyWeapon::BossEnemyWeapon()
+BossEnemyWeapon::BossEnemyWeapon() :m_hndl(-1), m_waitcount(0), m_weapon_up(), m_weapon_down(), m_weapon_left(), m_weapon_right()
 {
 }
 BossEnemyWeapon::~BossEnemyWeapon()
@@ -23,7 +24,7 @@ BossEnemyWeapon::~BossEnemyWeapon()
 // 初期化
 void BossEnemyWeapon::Init()
 {
-	m_hndl = -1;
+	m_waitcount = WAIT_COUNT;
 	for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
 	{
 		m_weapon_up[i].m_angle = 0.0f;
@@ -51,48 +52,35 @@ void BossEnemyWeapon::Load()
 // 毎フレーム処理
 void BossEnemyWeapon::Step(int bossPosX, int bossPosY)
 {
-	for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
+	m_waitcount -= 1;
+	if (m_waitcount <= 0)
 	{
-		// 生存フラグを確認しプレイヤーのアニメーションで撃つ方向を決める
-		// 上方向
-		if (m_weapon_up[i].m_isActive == false)
+		for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
 		{
-			m_weapon_up[i].m_isActive = true;
-			m_weapon_up[i].m_pos.x = bossPosX;
-			m_weapon_up[i].m_pos.y = bossPosY;
+			if (m_weapon_up[i].m_isActive == false && m_weapon_down[i].m_isActive == false &&
+				m_weapon_left[i].m_isActive == false && m_weapon_right[i].m_isActive == false)
+			{
+				m_weapon_up[i].m_isActive = true;
+				m_weapon_up[i].m_pos.x = bossPosX;
+				m_weapon_up[i].m_pos.y = bossPosY;
 
-			break;
+				m_weapon_down[i].m_isActive = true;
+				m_weapon_down[i].m_pos.x = bossPosX;
+				m_weapon_down[i].m_pos.y = bossPosY;
+
+				m_weapon_left[i].m_isActive = true;
+				m_weapon_left[i].m_pos.x = bossPosX;
+				m_weapon_left[i].m_pos.y = bossPosY;
+
+				m_weapon_right[i].m_isActive = true;
+				m_weapon_right[i].m_pos.x = bossPosX;
+				m_weapon_right[i].m_pos.y = bossPosY;
+
+				break;
+			}
 		}
 
-		// 下方向
-		if (m_weapon_down[i].m_isActive == false)
-		{
-			m_weapon_down[i].m_isActive = true;
-			m_weapon_down[i].m_pos.x = bossPosX;
-			m_weapon_down[i].m_pos.y = bossPosY;
-
-			break;
-		}
-
-		// 左方向
-		if (m_weapon_left[i].m_isActive == false)
-		{
-			m_weapon_left[i].m_isActive = true;
-			m_weapon_left[i].m_pos.x = bossPosX;
-			m_weapon_left[i].m_pos.y = bossPosY;
-
-			break;
-		}
-
-		// 右方向
-		if (m_weapon_right[i].m_isActive == false)
-		{
-			m_weapon_right[i].m_isActive = true;
-			m_weapon_right[i].m_pos.x = bossPosX;
-			m_weapon_right[i].m_pos.y = bossPosY;
-
-			break;
-		}
+		m_waitcount = WAIT_COUNT;
 	}
 }
 
@@ -108,7 +96,7 @@ void BossEnemyWeapon::Draw()
 			DrawRotaGraph(m_weapon_up[i].m_pos.x, m_weapon_up[i].m_pos.y, 0.05, m_weapon_up[i].m_angle, m_hndl, true);
 		
 			// 当たり判定表示
-			DrawCircle(m_weapon_up[i].m_pos.x, m_weapon_up[i].m_pos.y, 16, GetColor(255, 0, 0), false);
+			//DrawCircle(m_weapon_up[i].m_pos.x, m_weapon_up[i].m_pos.y, 16, GetColor(255, 0, 0), false);
 		}
 
 		if (m_weapon_down[i].m_isActive == true)

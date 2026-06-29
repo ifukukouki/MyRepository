@@ -1,14 +1,15 @@
 
 #include "HitCheck.h"
 #include "../../Lib/collision.h"
-#include "../Sound/Sound.h"
+#include "../../Lib/Sound.h"
+#include "../../Lib/effect.h"
 
 
 #define WEAPON_SIZE (16)	// 武器の当たり判定サイズ
 #define ENEMY_SIZE (16)		// 敵の当たり判定サイズ
 #define BIGENEMY_SIZE (28)	// 大きい敵の当たり判定サイズ
-#define BOSSENEMY_SIZE (28)	// ボスの当たり判定サイズ
-#define BOSSENEMYWEAPON_SIZE (28)	// ボスの武器の当たり判定サイズ
+#define BOSSENEMY_SIZE (32)	// ボスの当たり判定サイズ
+#define BOSSENEMYWEAPON_SIZE (15)	// ボスの武器の当たり判定サイズ
 #define WAIT_COUNT (180)	// プレイヤーの無敵時間用（3秒）
 
 
@@ -51,6 +52,8 @@ void HitCheck::CheckHitWeaponToEnemy(Weapon& weapon, Enemy& enemy)
 			{
 				// 効果音再生
 				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
 
 				// それぞれの当たった時の処理
 				if (isHit_up == true)
@@ -111,6 +114,8 @@ void HitCheck::CheckHitPlayerToEnemy(Player& player, Enemy& enemy)
 		{
 			// 効果音再生
 			Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+			// エフェクトを呼び出す
+			Effect::RequestExplosion(oneEnemy.m_pos);
 
 			// 体力を減らす
 			playerHp -= 1;
@@ -165,6 +170,8 @@ void HitCheck::CheckHitWeaponToBigEnemy(Weapon& weapon, BigEnemy& enemy)
 			{
 				// 効果音再生
 				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
 
 				// それぞれの当たった時の処理
 				if (isHit_up == true)
@@ -241,6 +248,8 @@ void HitCheck::CheckHitPlayerToBigEnemy(Player& player, BigEnemy& enemy)
 		{
 			// 効果音再生
 			Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+			// エフェクトを呼び出す
+			Effect::RequestExplosion(oneEnemy.m_pos);
 
 			// 体力を減らす
 			playerHp -= 1;
@@ -295,6 +304,8 @@ void HitCheck::CheckHitWeaponToBossEnemy(Weapon& weapon, BossEnemy& enemy)
 			{
 				// 効果音再生
 				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
 
 				// それぞれの当たった時の処理
 				if (isHit_up == true)
@@ -304,6 +315,7 @@ void HitCheck::CheckHitWeaponToBossEnemy(Weapon& weapon, BossEnemy& enemy)
 					if (oneEnemy.m_hp <= 0)
 					{
 						oneEnemy.m_isActive = false;
+						enemy.m_clearFlg = true;
 					}
 				}
 				if (isHit_down == true)
@@ -313,6 +325,7 @@ void HitCheck::CheckHitWeaponToBossEnemy(Weapon& weapon, BossEnemy& enemy)
 					if (oneEnemy.m_hp <= 0)
 					{
 						oneEnemy.m_isActive = false;
+						enemy.m_clearFlg = true;
 					}
 				}
 				if (isHit_left == true)
@@ -322,6 +335,7 @@ void HitCheck::CheckHitWeaponToBossEnemy(Weapon& weapon, BossEnemy& enemy)
 					if (oneEnemy.m_hp <= 0)
 					{
 						oneEnemy.m_isActive = false;
+						enemy.m_clearFlg = true;
 					}
 				}
 				if (isHit_right == true)
@@ -331,6 +345,7 @@ void HitCheck::CheckHitWeaponToBossEnemy(Weapon& weapon, BossEnemy& enemy)
 					if (oneEnemy.m_hp <= 0)
 					{
 						oneEnemy.m_isActive = false;
+						enemy.m_clearFlg = true;
 					}
 				}
 			}
@@ -374,8 +389,6 @@ void HitCheck::CheckHitPlayerToBossEnemy(Player& player, BossEnemy& enemy)
 
 			// 体力を減らす
 			playerHp -= 1;
-			// 敵を消す
-			oneEnemy.m_isActive = false;
 
 			if (playerHp <= 0)
 			{
@@ -407,11 +420,15 @@ void HitCheck::CheckHitPlayerToBossEnemyWeapon(Player& player, BossEnemyWeapon& 
 		VECTOR playerPos = player.GetPos();
 		float playerRadius = player.GetRadius();
 
+		// プレイヤーの体力と生存フラグを取得
+		int playerHp = player.GetHp();
+		bool playerFlg = player.isActive();
+
 		// プレイヤーとボスの武器の当たり判定を関数に入れる
-		bool isHit_up = ChekHitCircleToCircle(playerPos, playerRadius, oneWeaponUp.m_pos, BOSSENEMY_SIZE);
-		bool isHit_down = ChekHitCircleToCircle(playerPos, playerRadius, oneWeaponDown.m_pos, BOSSENEMY_SIZE);
-		bool isHit_left = ChekHitCircleToCircle(playerPos, playerRadius, oneWeaponLeft.m_pos, BOSSENEMY_SIZE);
-		bool isHit_right = ChekHitCircleToCircle(playerPos, playerRadius, oneWeaponRight.m_pos, BOSSENEMY_SIZE);
+		bool isHit_up = ChekHitCircleToCircle(playerPos, playerRadius, oneWeaponUp.m_pos, BOSSENEMYWEAPON_SIZE);
+		bool isHit_down = ChekHitCircleToCircle(playerPos, playerRadius, oneWeaponDown.m_pos, BOSSENEMYWEAPON_SIZE);
+		bool isHit_left = ChekHitCircleToCircle(playerPos, playerRadius, oneWeaponLeft.m_pos, BOSSENEMYWEAPON_SIZE);
+		bool isHit_right = ChekHitCircleToCircle(playerPos, playerRadius, oneWeaponRight.m_pos, BOSSENEMYWEAPON_SIZE);
 
 		// 当たったらフラグをオンに
 		if (isHit_up == true || isHit_down == true ||
@@ -419,42 +436,44 @@ void HitCheck::CheckHitPlayerToBossEnemyWeapon(Player& player, BossEnemyWeapon& 
 		{
 			// 効果音再生
 			Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+			// エフェクトを呼び出す
+			Effect::RequestExplosion(playerPos);
 
 			// それぞれの当たった時の処理
 			if (isHit_up == true)
 			{
 				oneWeaponUp.m_isActive = false;
-				oneEnemy.m_hp -= 1;
-				if (oneEnemy.m_hp <= 0)
+				playerHp -= 1;
+				if (playerHp <= 0)
 				{
-					oneEnemy.m_isActive = false;
+					playerFlg = false;
 				}
 			}
 			if (isHit_down == true)
 			{
 				oneWeaponDown.m_isActive = false;
-				oneEnemy.m_hp -= 1;
-				if (oneEnemy.m_hp <= 0)
+				playerHp -= 1;
+				if (playerHp <= 0)
 				{
-					oneEnemy.m_isActive = false;
+					playerFlg = false;
 				}
 			}
 			if (isHit_left == true)
 			{
 				oneWeaponLeft.m_isActive = false;
-				oneEnemy.m_hp -= 1;
-				if (oneEnemy.m_hp <= 0)
+				playerHp -= 1;
+				if (playerHp <= 0)
 				{
-					oneEnemy.m_isActive = false;
+					playerFlg = false;
 				}
 			}
 			if (isHit_right == true)
 			{
 				oneWeaponRight.m_isActive = false;
-				oneEnemy.m_hp -= 1;
-				if (oneEnemy.m_hp <= 0)
+				playerHp -= 1;
+				if (playerHp <= 0)
 				{
-					oneEnemy.m_isActive = false;
+					playerFlg = false;
 				}
 			}
 		}

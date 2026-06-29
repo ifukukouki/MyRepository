@@ -117,7 +117,7 @@ void Weapon::Draw()
 			DrawRotaGraph(m_weapon_up[i].m_pos.x, m_weapon_up[i].m_pos.y, 0.05, m_weapon_up[i].m_angle, m_hndl, true);
 		
 			// “–‚½‚è”»’è•\Ž¦
-			DrawCircle(m_weapon_up[i].m_pos.x, m_weapon_up[i].m_pos.y, 16, GetColor(255, 0, 0), false);
+			//DrawCircle(m_weapon_up[i].m_pos.x, m_weapon_up[i].m_pos.y, 15, GetColor(255, 0, 0), false);
 		}
 
 		if (m_weapon_down[i].m_isActive == true)

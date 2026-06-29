@@ -102,7 +102,7 @@ void Enemy::Draw()
 			DrawRotaGraph(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 0.05, 0.0, m_hndl, true);
 
 			// “–‚½‚è”»’è•\Ž¦
-			DrawCircle(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 16, GetColor(255, 0, 0), false);
+			//DrawCircle(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 16, GetColor(255, 0, 0), false);
 		}
 	}
 }

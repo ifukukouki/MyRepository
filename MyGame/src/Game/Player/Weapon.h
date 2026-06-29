@@ -7,9 +7,6 @@
 #define WEAPON_MAX (30)		// 撃てる最大数
 
 
-// 武器画像のサイズ
-const int WEAPON_SIZE = 16;
-
 typedef struct
 {
 	VECTOR m_pos;		// 座標

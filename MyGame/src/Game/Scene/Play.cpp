@@ -1,9 +1,10 @@
 
 #include "Play.h"
 #include "../../Lib/fade.h"
-#include "../Sound/Sound.h"
+#include "../../Lib/Sound.h"
 #include "../../Lib/collision.h"
 #include "../HitCheck/HitCheck.h"
+#include "../../Lib/effect.h"
 
 
 //--------------------------------
@@ -59,6 +60,14 @@ int Play::Loop()
 
 	case Play::MAIN:
 		Step();
+		// ボスが倒されたら
+		if (m_bossEnemy.m_clearFlg == true)
+		{
+			// フェードアウト開始
+			RequestFadeOut();
+
+			m_state = Play::ENDWAIT;	// 次へ進む
+		}
 		// エンターキーを押すと
 		if (CheckHitKey(KEY_INPUT_RETURN))
 		{
@@ -105,6 +114,7 @@ void Play::Draw()
 	m_bigEnemy.Draw();
 	m_bossEnemy.Draw();
 	m_bossEnemyWeapon.Draw();
+	Effect::DrawExplosion();
 }
 
 
@@ -120,6 +130,7 @@ void Play::Init()
 	m_bigEnemy.Init();
 	m_bossEnemy.Init();
 	m_bossEnemyWeapon.Init();
+	Effect::InitExplosion();
 }
 
 
@@ -135,6 +146,7 @@ void Play::Load()
 	m_bigEnemy.Load();
 	m_bossEnemy.Load();
 	m_bossEnemyWeapon.Load();
+	Effect::LoadExplosion();
 }
 
 
@@ -157,20 +169,27 @@ void Play::Step()
 	m_enemy.Step(m_player.GetPos());
 	m_bigEnemy.Step(m_player.GetPos());
 	m_bossEnemy.Step(m_player.GetPos());
-	m_bossEnemyWeapon.Step(m_bossEnemy.GetPosX(), m_bossEnemy.GetPosY());
-	for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
+	if (m_bossEnemy.GetisActive() == true)
 	{
-		m_bossEnemyWeapon.UpShot(i);
-		m_bossEnemyWeapon.DownShot(i);
-		m_bossEnemyWeapon.LeftShot(i);
-		m_bossEnemyWeapon.RightShot(i);
+		m_bossEnemyWeapon.Step(m_bossEnemy.GetPosX(), m_bossEnemy.GetPosY());
+		for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
+		{
+			m_bossEnemyWeapon.UpShot(i);
+			m_bossEnemyWeapon.DownShot(i);
+			m_bossEnemyWeapon.LeftShot(i);
+			m_bossEnemyWeapon.RightShot(i);
+		}
 	}
+	Effect::StepExplosion();
 
 	// 当たり判定==============================
 	HitCheck::CheckHitWeaponToEnemy(m_weapon, m_enemy);
 	HitCheck::CheckHitPlayerToEnemy(m_player, m_enemy);
 	HitCheck::CheckHitWeaponToBigEnemy(m_weapon, m_bigEnemy);
 	HitCheck::CheckHitPlayerToBigEnemy(m_player, m_bigEnemy);
+	HitCheck::CheckHitWeaponToBossEnemy(m_weapon, m_bossEnemy);
+	HitCheck::CheckHitPlayerToBossEnemy(m_player, m_bossEnemy);
+	HitCheck::CheckHitPlayerToBossEnemyWeapon(m_player, m_bossEnemyWeapon);
 
 	//=========================================
 }
@@ -188,6 +207,7 @@ void Play::Exit()
 	m_bigEnemy.Exit();
 	m_bossEnemy.Exit();
 	m_bossEnemyWeapon.Exit();
+	Effect::ExitExplosion();
 }
 
 

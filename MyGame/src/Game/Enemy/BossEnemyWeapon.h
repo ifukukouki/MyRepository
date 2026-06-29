@@ -7,9 +7,6 @@
 #define BOSSENEMY_WEAPON_MAX (30)		// 撃てる最大数
 
 
-// 武器画像のサイズ
-const int WEAPON_SIZE = 16;
-
 typedef struct
 {
 	VECTOR m_pos;		// 座標
@@ -62,6 +59,7 @@ public:
 
 private:
 	int m_hndl;
+	int m_waitcount;	// 弾の発射間隔
 	BOSSENEMY_WEAPON_DATA m_weapon_up[BOSSENEMY_WEAPON_MAX];	// 上に撃つ処理
 	BOSSENEMY_WEAPON_DATA m_weapon_down[BOSSENEMY_WEAPON_MAX];	// 下に撃つ処理
 	BOSSENEMY_WEAPON_DATA m_weapon_left[BOSSENEMY_WEAPON_MAX];	// 左に撃つ処理

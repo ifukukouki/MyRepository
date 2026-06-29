@@ -151,10 +151,11 @@
     <ClCompile Include="src\Game\Scene\Result.cpp" />
     <ClCompile Include="src\Game\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Game\Scene\Title.cpp" />
-    <ClCompile Include="src\Game\Sound\Sound.cpp" />
     <ClCompile Include="src\Lib\collision.cpp" />
+    <ClCompile Include="src\Lib\effect.cpp" />
     <ClCompile Include="src\Lib\fade.cpp" />
     <ClCompile Include="src\Lib\input.cpp" />
+    <ClCompile Include="src\Lib\Sound.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,10 +171,11 @@
     <ClInclude Include="src\Game\Scene\Result.h" />
     <ClInclude Include="src\Game\Scene\SceneManager.h" />
     <ClInclude Include="src\Game\Scene\Title.h" />
-    <ClInclude Include="src\Game\Sound\Sound.h" />
     <ClInclude Include="src\Lib\collision.h" />
+    <ClInclude Include="src\Lib\effect.h" />
     <ClInclude Include="src\Lib\fade.h" />
     <ClInclude Include="src\Lib\input.h" />
+    <ClInclude Include="src\Lib\Sound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

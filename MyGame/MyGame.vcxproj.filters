@@ -28,9 +28,6 @@
     <Filter Include="ソース ファイル\Game\Scene">
       <UniqueIdentifier>{1d4cb67b-7245-4eba-a921-007c8212c3f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Game\Sound">
-      <UniqueIdentifier>{646befc2-5ebe-4fcd-86be-eb78c79da5d9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Game\Enemy">
       <UniqueIdentifier>{b0319c18-54e1-400c-8b19-cf30d7c24dac}</UniqueIdentifier>
     </Filter>
@@ -69,9 +66,6 @@
     <ClCompile Include="src\Game\Scene\Result.cpp">
       <Filter>ソース ファイル\Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Sound\Sound.cpp">
-      <Filter>ソース ファイル\Game\Sound</Filter>
-    </ClCompile>
     <ClCompile Include="src\Game\Enemy\Enemy.cpp">
       <Filter>ソース ファイル\Game\Enemy</Filter>
     </ClCompile>
@@ -89,6 +83,12 @@
     </ClCompile>
     <ClCompile Include="src\Game\Enemy\BossEnemyWeapon.cpp">
       <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lib\effect.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Lib\Sound.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,9 +119,6 @@
     <ClInclude Include="src\Game\Scene\Result.h">
       <Filter>ソース ファイル\Game\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="src\Game\Sound\Sound.h">
-      <Filter>ソース ファイル\Game\Sound</Filter>
-    </ClInclude>
     <ClInclude Include="src\Game\Enemy\Enemy.h">
       <Filter>ソース ファイル\Game\Enemy</Filter>
     </ClInclude>
@@ -139,6 +136,12 @@
     </ClInclude>
     <ClInclude Include="src\Game\Enemy\BossEnemyWeapon.h">
       <Filter>ソース ファイル\Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lib\effect.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Lib\Sound.h">
+      <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
