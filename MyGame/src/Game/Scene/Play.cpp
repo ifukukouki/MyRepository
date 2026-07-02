@@ -5,6 +5,7 @@
 #include "../../Lib/collision.h"
 #include "../HitCheck/HitCheck.h"
 #include "../../Lib/effect.h"
+#include "../../Lib/input.h"
 
 
 //--------------------------------
@@ -69,7 +70,7 @@ int Play::Loop()
 			m_state = Play::ENDWAIT;	// 次へ進む
 		}
 		// エンターキーを押すと
-		if (CheckHitKey(KEY_INPUT_RETURN))
+		if (InputKey::IsPushKeyTrg(KEY_INPUT_RETURN))
 		{
 			// フェードアウト開始
 			RequestFadeOut();
@@ -180,6 +181,7 @@ void Play::Step()
 			m_bossEnemyWeapon.RightShot(i);
 		}
 	}
+
 	Effect::StepExplosion();
 
 	// 当たり判定==============================

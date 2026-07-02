@@ -2,6 +2,7 @@
 #include "Result.h"
 #include "../../Lib/fade.h"
 #include "../../Lib/Sound.h"
+#include "../../Lib/input.h"
 
 
 //--------------------------------
@@ -35,7 +36,7 @@ int Result::Loop()
 		break;
 
 	case Result::LOAD:
-		m_hndl = LoadGraph("data/image/RESULT.jpg");
+		m_hndl = LoadGraph("data/Result/iland.jpg");
 
 		// ゲーム本編のBGMを鳴らす					ループで鳴るように
 		Sound::Play(Sound::BGM_RESULT, DX_PLAYTYPE_LOOP);
@@ -55,7 +56,7 @@ int Result::Loop()
 
 	case Result::MAIN:
 		// エンターキーで次へ
-		if (CheckHitKey(KEY_INPUT_RETURN))
+		if (InputKey::IsPushKeyTrg(KEY_INPUT_RETURN))
 		{
 			// フェードアウト開始
 			RequestFadeOut();

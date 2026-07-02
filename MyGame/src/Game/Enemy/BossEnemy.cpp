@@ -6,12 +6,11 @@
 #define SCREEN_SIZE_X (1280.0f)
 #define SCREEN_SIZE_Y (640.0f)
 #define BOSSENEMY_IMG_PATH	"data/Enemy/character_monster_hana_02.png"	// 敵画像のファイルパス
-#define BOSSENEMY_SPEED (0.2f)	// 敵の移動速度
+#define BOSSENEMY_SPEED (0.3f)	// 敵の移動速度
 #define WAIT_COUNT (600)		// 敵再出現までにかかる時間（１秒＝６０フレーム）
 
 
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
-static const int HP = 100;
 
 
 BossEnemy::BossEnemy() :m_hndl(-1), m_waitCount(0), m_enemy(), m_clearFlg(false)
@@ -31,7 +30,6 @@ void BossEnemy::Init()
 		m_enemy[i].m_pos = ZERO;
 		m_enemy[i].m_dir = ZERO;
 		m_enemy[i].m_isActive = false;
-		m_enemy[i].m_hp = HP;
 	}
 }
 
@@ -83,9 +81,9 @@ void BossEnemy::Draw()
 {
 	for (int i = 0; i < BOSSENEMY_MAX; i++)
 	{
-		if (m_enemy[i].m_isActive == true && m_enemy[i].m_hp >= 1)
+		if (m_enemy[i].m_isActive == true)
 		{
-			DrawRotaGraph(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 0.17, 0.0, m_hndl, true);
+			DrawRotaGraph(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 0.05, 0.0, m_hndl, true);
 
 			// 当たり判定表示
 			//DrawCircle(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 32, GetColor(255, 0, 0), false);

@@ -10,7 +10,6 @@ typedef struct {
 	VECTOR m_pos;
 	VECTOR m_dir;
 	bool m_isActive;
-	int m_hp;	// ‘Ì—Í
 
 }BOSSENEMY_DATA;
 

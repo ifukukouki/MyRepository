@@ -2,6 +2,11 @@
 #include "Title.h"
 #include "../../Lib/fade.h"
 #include "../../Lib/Sound.h"
+#include "../../Lib/input.h"
+
+
+#define SCREEN_SIZE_X (1280.0f)
+#define SCREEN_SIZE_Y (640.0f)
 
 
 //--------------------------------
@@ -35,7 +40,7 @@ int Title::Loop()
 		break;
 
 	case Title::LOAD:
-		m_hndl = LoadGraph("data/image/TITLE.jpg");
+		m_hndl = LoadGraph("data/Title/iland.jpg");
 
 		// ゲーム本編のBGMを鳴らす					ループで鳴るように
 		Sound::Play(Sound::BGM_TITLE, DX_PLAYTYPE_LOOP);
@@ -55,7 +60,7 @@ int Title::Loop()
 
 	case Title::MAIN:
 		// エンターキーで次へ
-		if (CheckHitKey(KEY_INPUT_RETURN))
+		if (InputKey::IsPushKeyTrg(KEY_INPUT_RETURN))
 		{
 			// フェードアウト開始
 			RequestFadeOut();
@@ -102,7 +107,7 @@ void Title::Draw()
 	case Title::STARTWAIT:
 	case Title::MAIN:
 	case Title::ENDWAIT:
-		DrawRotaGraph(1280 / 2, 720 / 2, 1.0, 0.0, m_hndl, TRUE);
+		DrawRotaGraph(SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 1.0, 0.0, m_hndl, TRUE);
 		DrawFormatString(585, 480, GetColor(255, 255, 255), "Press 'Enter'");
 		DrawFormatString(0, 0, GetColor(255, 255, 255), "タイトル");
 		break;

@@ -43,12 +43,6 @@ public:
 	void LeftShot(int i);	// 左に飛ぶ処理
 	void RightShot(int i);	// 右に飛ぶ処理
 
-	// ヒット時の処理
-	bool UpShotHitCalc() { return m_weapon_up->m_isActive = false; }
-	bool DownShotHitCalc() { return m_weapon_down->m_isActive = false; }
-	bool LeftShotHitCalc() { return m_weapon_left->m_isActive = false; }
-	bool RightShotHitCalc() { return m_weapon_right->m_isActive = false; }
-
 	// 武器１つ分の情報取得
 	// @id : 配列番号
 	// 参照で取得

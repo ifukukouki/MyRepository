@@ -69,7 +69,7 @@ void Effect::DrawExplosion()
 	int nowHndl = m_hndl[(int)m_animCount];
 
 	//爆発画像表示
-	DrawRotaGraph((int)m_pos.x, (int)m_pos.y, 1.0, 0.0, nowHndl, TRUE);
+	DrawRotaGraph((int)m_pos.x, (int)m_pos.y, 0.5, 0.0, nowHndl, TRUE);
 }
 
 //終了前に行う

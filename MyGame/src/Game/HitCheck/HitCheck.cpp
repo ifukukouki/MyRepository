@@ -7,8 +7,8 @@
 
 #define WEAPON_SIZE (16)	// 武器の当たり判定サイズ
 #define ENEMY_SIZE (16)		// 敵の当たり判定サイズ
-#define BIGENEMY_SIZE (28)	// 大きい敵の当たり判定サイズ
-#define BOSSENEMY_SIZE (32)	// ボスの当たり判定サイズ
+#define BIGENEMY_SIZE (16)	// 大きい敵の当たり判定サイズ
+#define BOSSENEMY_SIZE (16)	// ボスの当たり判定サイズ
 #define BOSSENEMYWEAPON_SIZE (15)	// ボスの武器の当たり判定サイズ
 #define WAIT_COUNT (180)	// プレイヤーの無敵時間用（3秒）
 
@@ -177,38 +177,22 @@ void HitCheck::CheckHitWeaponToBigEnemy(Weapon& weapon, BigEnemy& enemy)
 				if (isHit_up == true)
 				{
 					oneWeaponUp.m_isActive = false;
-					oneEnemy.m_hp -= 1;
-					if (oneEnemy.m_hp <= 0)
-					{
-						oneEnemy.m_isActive = false;
-					}
+					oneEnemy.m_isActive = false;
 				}
 				if (isHit_down == true)
 				{
 					oneWeaponDown.m_isActive = false;
-					oneEnemy.m_hp -= 1;
-					if (oneEnemy.m_hp <= 0)
-					{
-						oneEnemy.m_isActive = false;
-					}
+					oneEnemy.m_isActive = false;
 				}
 				if (isHit_left == true)
 				{
 					oneWeaponLeft.m_isActive = false;
-					oneEnemy.m_hp -= 1;
-					if (oneEnemy.m_hp <= 0)
-					{
-						oneEnemy.m_isActive = false;
-					}
+					oneEnemy.m_isActive = false;
 				}
 				if (isHit_right == true)
 				{
 					oneWeaponRight.m_isActive = false;
-					oneEnemy.m_hp -= 1;
-					if (oneEnemy.m_hp <= 0)
-					{
-						oneEnemy.m_isActive = false;
-					}
+					oneEnemy.m_isActive = false;
 				}
 			}
 		}
@@ -311,42 +295,22 @@ void HitCheck::CheckHitWeaponToBossEnemy(Weapon& weapon, BossEnemy& enemy)
 				if (isHit_up == true)
 				{
 					oneWeaponUp.m_isActive = false;
-					oneEnemy.m_hp -= 1;
-					if (oneEnemy.m_hp <= 0)
-					{
-						oneEnemy.m_isActive = false;
-						enemy.m_clearFlg = true;
-					}
+					oneEnemy.m_isActive = false;
 				}
 				if (isHit_down == true)
 				{
 					oneWeaponDown.m_isActive = false;
-					oneEnemy.m_hp -= 1;
-					if (oneEnemy.m_hp <= 0)
-					{
-						oneEnemy.m_isActive = false;
-						enemy.m_clearFlg = true;
-					}
+					oneEnemy.m_isActive = false;
 				}
 				if (isHit_left == true)
 				{
 					oneWeaponLeft.m_isActive = false;
-					oneEnemy.m_hp -= 1;
-					if (oneEnemy.m_hp <= 0)
-					{
-						oneEnemy.m_isActive = false;
-						enemy.m_clearFlg = true;
-					}
+					oneEnemy.m_isActive = false;
 				}
 				if (isHit_right == true)
 				{
 					oneWeaponRight.m_isActive = false;
-					oneEnemy.m_hp -= 1;
-					if (oneEnemy.m_hp <= 0)
-					{
-						oneEnemy.m_isActive = false;
-						enemy.m_clearFlg = true;
-					}
+					oneEnemy.m_isActive = false;
 				}
 			}
 		}

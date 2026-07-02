@@ -14,7 +14,7 @@
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
 
 
-Weapon::Weapon()
+Weapon::Weapon() :m_hndl(0), m_weapon_up(), m_weapon_down(), m_weapon_left(), m_weapon_right()
 {
 }
 Weapon::~Weapon()
