@@ -8,74 +8,161 @@
 #define WEAPON_SIZE (16)	// 武器の当たり判定サイズ
 #define ENEMY_SIZE (16)		// 敵の当たり判定サイズ
 #define BIGENEMY_SIZE (16)	// 大きい敵の当たり判定サイズ
-#define BOSSENEMY_SIZE (16)	// ボスの当たり判定サイズ
+#define BOSSENEMY_SIZE (32)	// ボスの当たり判定サイズ
 #define BOSSENEMYWEAPON_SIZE (15)	// ボスの武器の当たり判定サイズ
 #define WAIT_COUNT (180)	// プレイヤーの無敵時間用（3秒）
 
 
-// 武器と敵の当たり判定
-void HitCheck::CheckHitWeaponToEnemy(Weapon& weapon, Enemy& enemy)
+// 武器（上方向）と敵の当たり判定
+void HitCheck::CheckHitWeaponUpToEnemy(Weapon& weapon, Enemy& enemy)
 {
 	// 敵の数だけループさせる
 	for (int enemyIndex = 0; enemyIndex < ENEMY_MAX; enemyIndex++)
 	{
 		ENEMY_DATA& oneEnemy = enemy.GetEnemy(enemyIndex);
 		// 敵の生存フラグがオフだったら次へ
-		if (oneEnemy.m_isActive == false)
-		{
-			continue;
-		}
+		if (oneEnemy.m_isActive == false)continue;
 
 		// 武器の数だけループさせる
 		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
 		{
-			WEAPON_DATA& oneWeaponUp = weapon.GetWeaponUp(weaponIndex);
-			WEAPON_DATA& oneWeaponDown = weapon.GetWeaponDown(weaponIndex);
-			WEAPON_DATA& oneWeaponLeft = weapon.GetWeaponRight(weaponIndex);
-			WEAPON_DATA& oneWeaponRight = weapon.GetWeaponLeft(weaponIndex);
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponUp(weaponIndex);
 			// 武器の生存フラグがオフなら次へ
-			if (oneWeaponUp.m_isActive == false && oneWeaponDown.m_isActive == false &&
-				oneWeaponLeft.m_isActive == false && oneWeaponRight.m_isActive == false)
-			{
-				continue;
-			}
+			if (oneWeapon.m_isActive == false)continue;
 
 			// 武器と敵の当たり判定を関数に入れる
-			bool isHit_up = ChekHitCircleToCircle(oneWeaponUp.m_pos, WEAPON_SIZE, oneEnemy.m_pos, ENEMY_SIZE);
-			bool isHit_down = ChekHitCircleToCircle(oneWeaponDown.m_pos, WEAPON_SIZE, oneEnemy.m_pos, ENEMY_SIZE);
-			bool isHit_left = ChekHitCircleToCircle(oneWeaponLeft.m_pos, WEAPON_SIZE, oneEnemy.m_pos, ENEMY_SIZE);
-			bool isHit_right = ChekHitCircleToCircle(oneWeaponRight.m_pos, WEAPON_SIZE, oneEnemy.m_pos, ENEMY_SIZE);
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, ENEMY_SIZE);
 
 			// 当たったらフラグをオンに
-			if (isHit_up == true || isHit_down == true ||
-				isHit_left == true || isHit_right == true)
+			if (isHit == true)
 			{
 				// 効果音再生
 				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
 				// エフェクトを呼び出す
 				Effect::RequestExplosion(oneEnemy.m_pos);
+			}
+			// それぞれの当たった時の処理
+			if (isHit == true)
+			{
+				oneWeapon.m_isActive = false;
+				oneEnemy.m_isActive = false;
+			}
+		}
+	}
+}
 
-				// それぞれの当たった時の処理
-				if (isHit_up == true)
-				{
-					oneWeaponUp.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
-				if (isHit_down == true)
-				{
-					oneWeaponDown.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
-				if (isHit_left == true)
-				{
-					oneWeaponLeft.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
-				if (isHit_right == true)
-				{
-					oneWeaponRight.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
+
+// 武器（下方向）と敵の当たり判定
+void HitCheck::CheckHitWeaponDownToEnemy(Weapon& weapon, Enemy& enemy)
+{
+	// 敵の数だけループさせる
+	for (int enemyIndex = 0; enemyIndex < ENEMY_MAX; enemyIndex++)
+	{
+		ENEMY_DATA& oneEnemy = enemy.GetEnemy(enemyIndex);
+		// 敵の生存フラグがオフだったら次へ
+		if (oneEnemy.m_isActive == false)continue;
+
+		// 武器の数だけループさせる
+		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
+		{
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponDown(weaponIndex);
+			// 武器の生存フラグがオフなら次へ
+			if (oneWeapon.m_isActive == false)continue;
+
+			// 武器と敵の当たり判定を関数に入れる
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, ENEMY_SIZE);
+
+			// 当たったらフラグをオンに
+			if (isHit == true)
+			{
+				// 効果音再生
+				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
+			}
+			// それぞれの当たった時の処理
+			if (isHit == true)
+			{
+				oneWeapon.m_isActive = false;
+				oneEnemy.m_isActive = false;
+			}
+		}
+	}
+}
+
+
+// 武器（左方向）と敵の当たり判定
+void HitCheck::CheckHitWeaponLeftToEnemy(Weapon& weapon, Enemy& enemy)
+{
+	// 敵の数だけループさせる
+	for (int enemyIndex = 0; enemyIndex < ENEMY_MAX; enemyIndex++)
+	{
+		ENEMY_DATA& oneEnemy = enemy.GetEnemy(enemyIndex);
+		// 敵の生存フラグがオフだったら次へ
+		if (oneEnemy.m_isActive == false)continue;
+
+		// 武器の数だけループさせる
+		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
+		{
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponLeft(weaponIndex);
+			// 武器の生存フラグがオフなら次へ
+			if (oneWeapon.m_isActive == false)continue;
+
+			// 武器と敵の当たり判定を関数に入れる
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, ENEMY_SIZE);
+
+			// 当たったらフラグをオンに
+			if (isHit == true)
+			{
+				// 効果音再生
+				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
+			}
+			// それぞれの当たった時の処理
+			if (isHit == true)
+			{
+				oneWeapon.m_isActive = false;
+				oneEnemy.m_isActive = false;
+			}
+		}
+	}
+}
+
+
+// 武器（右方向）と敵の当たり判定
+void HitCheck::CheckHitWeaponRightToEnemy(Weapon& weapon, Enemy& enemy)
+{
+	// 敵の数だけループさせる
+	for (int enemyIndex = 0; enemyIndex < ENEMY_MAX; enemyIndex++)
+	{
+		ENEMY_DATA& oneEnemy = enemy.GetEnemy(enemyIndex);
+		// 敵の生存フラグがオフだったら次へ
+		if (oneEnemy.m_isActive == false)continue;
+
+		// 武器の数だけループさせる
+		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
+		{
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponRight(weaponIndex);
+			// 武器の生存フラグがオフなら次へ
+			if (oneWeapon.m_isActive == false)continue;
+
+			// 武器と敵の当たり判定を関数に入れる
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, ENEMY_SIZE);
+
+			// 当たったらフラグをオンに
+			if (isHit == true)
+			{
+				// 効果音再生
+				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
+			}
+			// それぞれの当たった時の処理
+			if (isHit == true)
+			{
+				oneWeapon.m_isActive = false;
+				oneEnemy.m_isActive = false;
 			}
 		}
 	}
@@ -131,69 +218,156 @@ void HitCheck::CheckHitPlayerToEnemy(Player& player, Enemy& enemy)
 }
 
 
-// 武器と大きい敵の当たり判定
-void HitCheck::CheckHitWeaponToBigEnemy(Weapon& weapon, BigEnemy& enemy)
+// 武器（上方向）と大きい敵の当たり判定
+void HitCheck::CheckHitWeaponUpToBigEnemy(Weapon& weapon, BigEnemy& enemy)
 {
 	// 敵の数だけループさせる
 	for (int enemyIndex = 0; enemyIndex < BIGENEMY_MAX; enemyIndex++)
 	{
 		BIGENEMY_DATA& oneEnemy = enemy.GetBigEnemy(enemyIndex);
 		// 敵の生存フラグがオフだったら次へ
-		if (oneEnemy.m_isActive == false)
-		{
-			continue;
-		}
+		if (oneEnemy.m_isActive == false)continue;
 
 		// 武器の数だけループさせる
 		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
 		{
-			WEAPON_DATA& oneWeaponUp = weapon.GetWeaponUp(weaponIndex);
-			WEAPON_DATA& oneWeaponDown = weapon.GetWeaponDown(weaponIndex);
-			WEAPON_DATA& oneWeaponLeft = weapon.GetWeaponRight(weaponIndex);
-			WEAPON_DATA& oneWeaponRight = weapon.GetWeaponLeft(weaponIndex);
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponUp(weaponIndex);
 			// 武器の生存フラグがオフなら次へ
-			if (oneWeaponUp.m_isActive == false && oneWeaponDown.m_isActive == false &&
-				oneWeaponLeft.m_isActive == false && oneWeaponRight.m_isActive == false)
-			{
-				continue;
-			}
+			if (oneWeapon.m_isActive == false)continue;
 
 			// 武器と敵の当たり判定を関数に入れる
-			bool isHit_up = ChekHitCircleToCircle(oneWeaponUp.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BIGENEMY_SIZE);
-			bool isHit_down = ChekHitCircleToCircle(oneWeaponDown.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BIGENEMY_SIZE);
-			bool isHit_left = ChekHitCircleToCircle(oneWeaponLeft.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BIGENEMY_SIZE);
-			bool isHit_right = ChekHitCircleToCircle(oneWeaponRight.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BIGENEMY_SIZE);
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BIGENEMY_SIZE);
 
 			// 当たったらフラグをオンに
-			if (isHit_up == true || isHit_down == true ||
-				isHit_left == true || isHit_right == true)
+			if (isHit == true)
 			{
 				// 効果音再生
 				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
 				// エフェクトを呼び出す
 				Effect::RequestExplosion(oneEnemy.m_pos);
+			}
+			// それぞれの当たった時の処理
+			if (isHit == true)
+			{
+				oneWeapon.m_isActive = false;
+				oneEnemy.m_isActive = false;
+			}
+		}
+	}
+}
 
-				// それぞれの当たった時の処理
-				if (isHit_up == true)
-				{
-					oneWeaponUp.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
-				if (isHit_down == true)
-				{
-					oneWeaponDown.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
-				if (isHit_left == true)
-				{
-					oneWeaponLeft.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
-				if (isHit_right == true)
-				{
-					oneWeaponRight.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
+
+// 武器（下方向）と大きい敵の当たり判定
+void HitCheck::CheckHitWeaponDownToBigEnemy(Weapon& weapon, BigEnemy& enemy)
+{
+	// 敵の数だけループさせる
+	for (int enemyIndex = 0; enemyIndex < BIGENEMY_MAX; enemyIndex++)
+	{
+		BIGENEMY_DATA& oneEnemy = enemy.GetBigEnemy(enemyIndex);
+		// 敵の生存フラグがオフだったら次へ
+		if (oneEnemy.m_isActive == false)continue;
+
+		// 武器の数だけループさせる
+		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
+		{
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponDown(weaponIndex);
+			// 武器の生存フラグがオフなら次へ
+			if (oneWeapon.m_isActive == false)continue;
+
+			// 武器と敵の当たり判定を関数に入れる
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BIGENEMY_SIZE);
+
+			// 当たったらフラグをオンに
+			if (isHit == true)
+			{
+				// 効果音再生
+				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
+			}
+			// それぞれの当たった時の処理
+			if (isHit == true)
+			{
+				oneWeapon.m_isActive = false;
+				oneEnemy.m_isActive = false;
+			}
+		}
+	}
+}
+
+
+// 武器（左方向）と大きい敵の当たり判定
+void HitCheck::CheckHitWeaponLeftToBigEnemy(Weapon& weapon, BigEnemy& enemy)
+{
+	// 敵の数だけループさせる
+	for (int enemyIndex = 0; enemyIndex < BIGENEMY_MAX; enemyIndex++)
+	{
+		BIGENEMY_DATA& oneEnemy = enemy.GetBigEnemy(enemyIndex);
+		// 敵の生存フラグがオフだったら次へ
+		if (oneEnemy.m_isActive == false)continue;
+
+		// 武器の数だけループさせる
+		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
+		{
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponLeft(weaponIndex);
+			// 武器の生存フラグがオフなら次へ
+			if (oneWeapon.m_isActive == false)continue;
+
+			// 武器と敵の当たり判定を関数に入れる
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BIGENEMY_SIZE);
+
+			// 当たったらフラグをオンに
+			if (isHit == true)
+			{
+				// 効果音再生
+				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
+			}
+			// それぞれの当たった時の処理
+			if (isHit == true)
+			{
+				oneWeapon.m_isActive = false;
+				oneEnemy.m_isActive = false;
+			}
+		}
+	}
+}
+
+
+// 武器（右方向）と大きい敵の当たり判定
+void HitCheck::CheckHitWeaponRightToBigEnemy(Weapon& weapon, BigEnemy& enemy)
+{
+	// 敵の数だけループさせる
+	for (int enemyIndex = 0; enemyIndex < BIGENEMY_MAX; enemyIndex++)
+	{
+		BIGENEMY_DATA& oneEnemy = enemy.GetBigEnemy(enemyIndex);
+		// 敵の生存フラグがオフだったら次へ
+		if (oneEnemy.m_isActive == false)continue;
+
+		// 武器の数だけループさせる
+		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
+		{
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponRight(weaponIndex);
+			// 武器の生存フラグがオフなら次へ
+			if (oneWeapon.m_isActive == false)continue;
+
+			// 武器と敵の当たり判定を関数に入れる
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BIGENEMY_SIZE);
+
+			// 当たったらフラグをオンに
+			if (isHit == true)
+			{
+				// 効果音再生
+				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
+			}
+			// それぞれの当たった時の処理
+			if (isHit == true)
+			{
+				oneWeapon.m_isActive = false;
+				oneEnemy.m_isActive = false;
 			}
 		}
 	}
@@ -249,69 +423,175 @@ void HitCheck::CheckHitPlayerToBigEnemy(Player& player, BigEnemy& enemy)
 }
 
 
-// 武器とボスの当たり判定
-void HitCheck::CheckHitWeaponToBossEnemy(Weapon& weapon, BossEnemy& enemy)
+// 武器（上方向）とボスの当たり判定
+void HitCheck::CheckHitWeaponUpToBossEnemy(Weapon& weapon, BossEnemy& enemy)
 {
 	// 敵の数だけループさせる
 	for (int enemyIndex = 0; enemyIndex < BOSSENEMY_MAX; enemyIndex++)
 	{
 		BOSSENEMY_DATA& oneEnemy = enemy.GetBossEnemy(enemyIndex);
 		// 敵の生存フラグがオフだったら次へ
-		if (oneEnemy.m_isActive == false)
-		{
-			continue;
-		}
+		if (oneEnemy.m_isActive == false)continue;
 
 		// 武器の数だけループさせる
 		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
 		{
-			WEAPON_DATA& oneWeaponUp = weapon.GetWeaponUp(weaponIndex);
-			WEAPON_DATA& oneWeaponDown = weapon.GetWeaponDown(weaponIndex);
-			WEAPON_DATA& oneWeaponLeft = weapon.GetWeaponRight(weaponIndex);
-			WEAPON_DATA& oneWeaponRight = weapon.GetWeaponLeft(weaponIndex);
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponUp(weaponIndex);
 			// 武器の生存フラグがオフなら次へ
-			if (oneWeaponUp.m_isActive == false && oneWeaponDown.m_isActive == false &&
-				oneWeaponLeft.m_isActive == false && oneWeaponRight.m_isActive == false)
-			{
-				continue;
-			}
+			if (oneWeapon.m_isActive == false)continue;
 
 			// 武器と敵の当たり判定を関数に入れる
-			bool isHit_up = ChekHitCircleToCircle(oneWeaponUp.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BOSSENEMY_SIZE);
-			bool isHit_down = ChekHitCircleToCircle(oneWeaponDown.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BOSSENEMY_SIZE);
-			bool isHit_left = ChekHitCircleToCircle(oneWeaponLeft.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BOSSENEMY_SIZE);
-			bool isHit_right = ChekHitCircleToCircle(oneWeaponRight.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BOSSENEMY_SIZE);
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BOSSENEMY_SIZE);
 
 			// 当たったらフラグをオンに
-			if (isHit_up == true || isHit_down == true ||
-				isHit_left == true || isHit_right == true)
+			if (isHit == true)
 			{
 				// 効果音再生
 				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
 				// エフェクトを呼び出す
 				Effect::RequestExplosion(oneEnemy.m_pos);
 
-				// それぞれの当たった時の処理
-				if (isHit_up == true)
-				{
-					oneWeaponUp.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
-				if (isHit_down == true)
-				{
-					oneWeaponDown.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
-				if (isHit_left == true)
-				{
-					oneWeaponLeft.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
-				if (isHit_right == true)
-				{
-					oneWeaponRight.m_isActive = false;
-					oneEnemy.m_isActive = false;
-				}
+				// 体力を減らす
+				oneEnemy.m_hp -= 1;
+
+				oneWeapon.m_isActive = false;
+			}
+			// 体力が０になったら生存フラグオフ
+			if (oneEnemy.m_hp <= 0)
+			{
+				oneEnemy.m_isActive = false;
+			}
+		}
+	}
+}
+
+
+// 武器（下方向）とボスの当たり判定
+void HitCheck::CheckHitWeaponDownToBossEnemy(Weapon& weapon, BossEnemy& enemy)
+{
+	// 敵の数だけループさせる
+	for (int enemyIndex = 0; enemyIndex < BOSSENEMY_MAX; enemyIndex++)
+	{
+		BOSSENEMY_DATA& oneEnemy = enemy.GetBossEnemy(enemyIndex);
+		// 敵の生存フラグがオフだったら次へ
+		if (oneEnemy.m_isActive == false)continue;
+
+		// 武器の数だけループさせる
+		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
+		{
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponDown(weaponIndex);
+			// 武器の生存フラグがオフなら次へ
+			if (oneWeapon.m_isActive == false)continue;
+
+			// 武器と敵の当たり判定を関数に入れる
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BOSSENEMY_SIZE);
+
+			// 当たったらフラグをオンに
+			if (isHit == true)
+			{
+				// 効果音再生
+				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
+
+				// 体力を減らす
+				oneEnemy.m_hp -= 1;
+
+				oneWeapon.m_isActive = false;
+			}
+			// 体力が０になったら生存フラグオフ
+			if (oneEnemy.m_hp <= 0)
+			{
+				oneEnemy.m_isActive = false;
+			}
+		}
+	}
+}
+
+
+// 武器（左方向）とボスの当たり判定
+void HitCheck::CheckHitWeaponLeftToBossEnemy(Weapon& weapon, BossEnemy& enemy)
+{
+	// 敵の数だけループさせる
+	for (int enemyIndex = 0; enemyIndex < BOSSENEMY_MAX; enemyIndex++)
+	{
+		BOSSENEMY_DATA& oneEnemy = enemy.GetBossEnemy(enemyIndex);
+		// 敵の生存フラグがオフだったら次へ
+		if (oneEnemy.m_isActive == false)continue;
+
+		// 武器の数だけループさせる
+		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
+		{
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponLeft(weaponIndex);
+			// 武器の生存フラグがオフなら次へ
+			if (oneWeapon.m_isActive == false)continue;
+
+			// 武器と敵の当たり判定を関数に入れる
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BOSSENEMY_SIZE);
+
+			// 当たったらフラグをオンに
+			if (isHit == true)
+			{
+				// 効果音再生
+				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
+
+				// 体力を減らす
+				oneEnemy.m_hp -= 1;
+
+				oneWeapon.m_isActive = false;
+			}
+			// 体力が０になったら生存フラグオフ
+			if (oneEnemy.m_hp <= 0)
+			{
+				oneEnemy.m_isActive = false;
+			}
+		}
+	}
+}
+
+
+// 武器（右方向）とボスの当たり判定
+void HitCheck::CheckHitWeaponRightToBossEnemy(Weapon& weapon, BossEnemy& enemy)
+{
+	// 敵の数だけループさせる
+	for (int enemyIndex = 0; enemyIndex < BOSSENEMY_MAX; enemyIndex++)
+	{
+		BOSSENEMY_DATA& oneEnemy = enemy.GetBossEnemy(enemyIndex);
+		// 敵の生存フラグがオフだったら次へ
+		if (oneEnemy.m_isActive == false)continue;
+
+		// 武器の数だけループさせる
+		for (int weaponIndex = 0; weaponIndex < WEAPON_MAX; weaponIndex++)
+		{
+			WEAPON_DATA& oneWeapon = weapon.GetWeaponRight(weaponIndex);
+			// 武器の生存フラグがオフなら次へ
+			if (oneWeapon.m_isActive == false)continue;
+
+			// 武器と敵の当たり判定を関数に入れる
+			bool isHit = ChekHitCircleToCircle(oneWeapon.m_pos, WEAPON_SIZE, oneEnemy.m_pos, BOSSENEMY_SIZE);
+
+			// 当たったらフラグをオンに
+			if (isHit == true)
+			{
+				// 効果音再生
+				Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
+				// エフェクトを呼び出す
+				Effect::RequestExplosion(oneEnemy.m_pos);
+
+				// 体力を減らす
+				oneEnemy.m_hp -= 1;
+
+				oneWeapon.m_isActive = false;
+			}
+
+			// 体力が０になったら生存フラグオフ、クリアフラグをオン
+			if (oneEnemy.m_hp <= 0)
+			{
+				oneEnemy.m_isActive = false;
+
+				BossEnemy::m_isClear = true;
 			}
 		}
 	}
@@ -402,43 +682,42 @@ void HitCheck::CheckHitPlayerToBossEnemyWeapon(Player& player, BossEnemyWeapon& 
 			Sound::Play(Sound::SE_EXPLOSION, DX_PLAYTYPE_BACK);
 			// エフェクトを呼び出す
 			Effect::RequestExplosion(playerPos);
-
-			// それぞれの当たった時の処理
-			if (isHit_up == true)
+		}
+		// それぞれの当たった時の処理
+		if (isHit_up == true)
+		{
+			oneWeaponUp.m_isActive = false;
+			playerHp -= 1;
+			if (playerHp <= 0)
 			{
-				oneWeaponUp.m_isActive = false;
-				playerHp -= 1;
-				if (playerHp <= 0)
-				{
-					playerFlg = false;
-				}
+				playerFlg = false;
 			}
-			if (isHit_down == true)
+		}
+		if (isHit_down == true)
+		{
+			oneWeaponDown.m_isActive = false;
+			playerHp -= 1;
+			if (playerHp <= 0)
 			{
-				oneWeaponDown.m_isActive = false;
-				playerHp -= 1;
-				if (playerHp <= 0)
-				{
-					playerFlg = false;
-				}
+				playerFlg = false;
 			}
-			if (isHit_left == true)
+		}
+		if (isHit_left == true)
+		{
+			oneWeaponLeft.m_isActive = false;
+			playerHp -= 1;
+			if (playerHp <= 0)
 			{
-				oneWeaponLeft.m_isActive = false;
-				playerHp -= 1;
-				if (playerHp <= 0)
-				{
-					playerFlg = false;
-				}
+				playerFlg = false;
 			}
-			if (isHit_right == true)
+		}
+		if (isHit_right == true)
+		{
+			oneWeaponRight.m_isActive = false;
+			playerHp -= 1;
+			if (playerHp <= 0)
 			{
-				oneWeaponRight.m_isActive = false;
-				playerHp -= 1;
-				if (playerHp <= 0)
-				{
-					playerFlg = false;
-				}
+				playerFlg = false;
 			}
 		}
 	}

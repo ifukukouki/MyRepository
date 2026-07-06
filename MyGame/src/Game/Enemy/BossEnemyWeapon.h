@@ -22,21 +22,9 @@ public:
 
 	void Init();
 	void Load();
-	void Step(int bossPosX, int bossPosY);
+	void Step(int bossPosX, int bossPosY, bool isActive);
 	void Draw();
 	void Exit();
-
-	// ¶‘¶ƒtƒ‰ƒO‚ðŽæ“¾
-	bool Up_isActive() { return m_weapon_up->m_isActive; }
-	bool Down_isActive() { return m_weapon_down->m_isActive; }
-	bool Left_isActive() { return m_weapon_left->m_isActive; }
-	bool Right_isActive() { return m_weapon_right->m_isActive; }
-
-	// À•WŽæ“¾
-	VECTOR Up_GetPos() { return m_weapon_up->m_pos; }
-	VECTOR Down_GetPos() { return m_weapon_down->m_pos; }
-	VECTOR Left_GetPos() { return m_weapon_left->m_pos; }
-	VECTOR Right_GetPos() { return m_weapon_right->m_pos; }
 
 	void UpShot(int i);		// ã‚É”ò‚Ôˆ—
 	void DownShot(int i);	// ‰º‚É”ò‚Ôˆ—

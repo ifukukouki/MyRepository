@@ -40,7 +40,7 @@
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
 static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
 static const float PLAYER_RADIUS = 1.0f;
-static const int HP = 1;
+static const int HP = 3;
 
 
 Player::Player() :m_pos(ZERO), m_nextPosX(0), m_nextPosY(0), animeImgHundle(), animeUsedNum(), 

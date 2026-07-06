@@ -11,9 +11,15 @@
 
 
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
+static const int HP = 10;
 
 
-BossEnemy::BossEnemy() :m_hndl(-1), m_waitCount(0), m_enemy(), m_clearFlg(false)
+// staticメンバ変数はここで書く作業が必須！！------
+bool BossEnemy::m_isClear;
+//-------------------------------------------------
+
+
+BossEnemy::BossEnemy() :m_hndl(-1), m_waitCount(0), m_enemy()
 {
 }
 BossEnemy::~BossEnemy()
@@ -30,6 +36,7 @@ void BossEnemy::Init()
 		m_enemy[i].m_pos = ZERO;
 		m_enemy[i].m_dir = ZERO;
 		m_enemy[i].m_isActive = false;
+		m_enemy[i].m_hp = HP;
 	}
 }
 
@@ -83,7 +90,7 @@ void BossEnemy::Draw()
 	{
 		if (m_enemy[i].m_isActive == true)
 		{
-			DrawRotaGraph(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 0.05, 0.0, m_hndl, true);
+			DrawRotaGraph(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 0.1, 0.0, m_hndl, true);
 
 			// 当たり判定表示
 			//DrawCircle(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 32, GetColor(255, 0, 0), false);
@@ -101,7 +108,7 @@ void BossEnemy::Exit()
 		m_hndl = -1;
 	}
 
-	m_clearFlg = false;
+	m_isClear = false;
 }
 
 
@@ -128,4 +135,5 @@ bool BossEnemy::Request()
 	}
 	return true;
 }
+
 

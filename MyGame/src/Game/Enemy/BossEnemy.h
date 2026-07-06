@@ -10,6 +10,7 @@ typedef struct {
 	VECTOR m_pos;
 	VECTOR m_dir;
 	bool m_isActive;
+	int m_hp;
 
 }BOSSENEMY_DATA;
 
@@ -46,7 +47,6 @@ private:
 	BOSSENEMY_DATA m_enemy[BOSSENEMY_MAX];
 
 public:
-	// ボスを倒したか判断用
-	bool m_clearFlg;
+	static bool m_isClear;	// ボスを倒したか（true＝倒した、false＝倒していない）
 };
 

@@ -62,7 +62,7 @@ int Play::Loop()
 	case Play::MAIN:
 		Step();
 		// ボスが倒されたら
-		if (m_bossEnemy.m_clearFlg == true)
+		if (m_bossEnemy.m_isClear == true)
 		{
 			// フェードアウト開始
 			RequestFadeOut();
@@ -159,6 +159,7 @@ void Play::Step()
 	m_player.Step();
 	MapCollision();
 	m_player.UpdatePos();
+
 	m_weapon.Step(m_player.GetNextPosX(), m_player.GetNextPosY(), m_player.GetPlayerAngle(), m_player.GetPlayerAnime());
 	for (int i = 0; i < WEAPON_MAX; i++)
 	{
@@ -167,29 +168,38 @@ void Play::Step()
 		m_weapon.LeftShot(i);
 		m_weapon.RightShot(i);
 	}
+
 	m_enemy.Step(m_player.GetPos());
 	m_bigEnemy.Step(m_player.GetPos());
 	m_bossEnemy.Step(m_player.GetPos());
-	if (m_bossEnemy.GetisActive() == true)
+
+	m_bossEnemyWeapon.Step(m_bossEnemy.GetPosX(), m_bossEnemy.GetPosY(), m_bossEnemy.GetisActive());
+	for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
 	{
-		m_bossEnemyWeapon.Step(m_bossEnemy.GetPosX(), m_bossEnemy.GetPosY());
-		for (int i = 0; i < BOSSENEMY_WEAPON_MAX; i++)
-		{
-			m_bossEnemyWeapon.UpShot(i);
-			m_bossEnemyWeapon.DownShot(i);
-			m_bossEnemyWeapon.LeftShot(i);
-			m_bossEnemyWeapon.RightShot(i);
-		}
+		m_bossEnemyWeapon.UpShot(i);
+		m_bossEnemyWeapon.DownShot(i);
+		m_bossEnemyWeapon.LeftShot(i);
+		m_bossEnemyWeapon.RightShot(i);
 	}
+
 
 	Effect::StepExplosion();
 
 	// 当たり判定==============================
-	HitCheck::CheckHitWeaponToEnemy(m_weapon, m_enemy);
+	HitCheck::CheckHitWeaponUpToEnemy(m_weapon, m_enemy);
+	HitCheck::CheckHitWeaponDownToEnemy(m_weapon, m_enemy);
+	HitCheck::CheckHitWeaponLeftToEnemy(m_weapon, m_enemy);
+	HitCheck::CheckHitWeaponRightToEnemy(m_weapon, m_enemy);
 	HitCheck::CheckHitPlayerToEnemy(m_player, m_enemy);
-	HitCheck::CheckHitWeaponToBigEnemy(m_weapon, m_bigEnemy);
+	HitCheck::CheckHitWeaponUpToBigEnemy(m_weapon, m_bigEnemy);
+	HitCheck::CheckHitWeaponDownToBigEnemy(m_weapon, m_bigEnemy);
+	HitCheck::CheckHitWeaponLeftToBigEnemy(m_weapon, m_bigEnemy);
+	HitCheck::CheckHitWeaponRightToBigEnemy(m_weapon, m_bigEnemy);
 	HitCheck::CheckHitPlayerToBigEnemy(m_player, m_bigEnemy);
-	HitCheck::CheckHitWeaponToBossEnemy(m_weapon, m_bossEnemy);
+	HitCheck::CheckHitWeaponUpToBossEnemy(m_weapon, m_bossEnemy);
+	HitCheck::CheckHitWeaponDownToBossEnemy(m_weapon, m_bossEnemy);
+	HitCheck::CheckHitWeaponLeftToBossEnemy(m_weapon, m_bossEnemy);
+	HitCheck::CheckHitWeaponRightToBossEnemy(m_weapon, m_bossEnemy);
 	HitCheck::CheckHitPlayerToBossEnemy(m_player, m_bossEnemy);
 	HitCheck::CheckHitPlayerToBossEnemyWeapon(m_player, m_bossEnemyWeapon);
 
