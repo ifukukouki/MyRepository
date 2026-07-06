@@ -38,6 +38,8 @@ void BossEnemy::Init()
 		m_enemy[i].m_isActive = false;
 		m_enemy[i].m_hp = HP;
 	}
+
+	m_isClear = false;
 }
 
 

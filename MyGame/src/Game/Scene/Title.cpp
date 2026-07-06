@@ -109,7 +109,7 @@ void Title::Draw()
 	case Title::ENDWAIT:
 		DrawRotaGraph(SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 1.0, 0.0, m_hndl, TRUE);
 		DrawFormatString(585, 480, GetColor(255, 255, 255), "Press 'Enter'");
-		DrawFormatString(0, 0, GetColor(255, 255, 255), "タイトル");
+		//DrawFormatString(0, 0, GetColor(255, 255, 255), "タイトル");
 		break;
 	}
 }

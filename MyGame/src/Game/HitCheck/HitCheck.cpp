@@ -456,10 +456,13 @@ void HitCheck::CheckHitWeaponUpToBossEnemy(Weapon& weapon, BossEnemy& enemy)
 
 				oneWeapon.m_isActive = false;
 			}
-			// 体力が０になったら生存フラグオフ
+
+			// 体力が０になったら生存フラグオフ、クリアフラグをオン
 			if (oneEnemy.m_hp <= 0)
 			{
 				oneEnemy.m_isActive = false;
+
+				BossEnemy::m_isClear = true;
 			}
 		}
 	}
@@ -499,10 +502,13 @@ void HitCheck::CheckHitWeaponDownToBossEnemy(Weapon& weapon, BossEnemy& enemy)
 
 				oneWeapon.m_isActive = false;
 			}
-			// 体力が０になったら生存フラグオフ
+
+			// 体力が０になったら生存フラグオフ、クリアフラグをオン
 			if (oneEnemy.m_hp <= 0)
 			{
 				oneEnemy.m_isActive = false;
+
+				BossEnemy::m_isClear = true;
 			}
 		}
 	}
@@ -542,10 +548,13 @@ void HitCheck::CheckHitWeaponLeftToBossEnemy(Weapon& weapon, BossEnemy& enemy)
 
 				oneWeapon.m_isActive = false;
 			}
-			// 体力が０になったら生存フラグオフ
+
+			// 体力が０になったら生存フラグオフ、クリアフラグをオン
 			if (oneEnemy.m_hp <= 0)
 			{
 				oneEnemy.m_isActive = false;
+
+				BossEnemy::m_isClear = true;
 			}
 		}
 	}
