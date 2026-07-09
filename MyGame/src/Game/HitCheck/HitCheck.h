@@ -43,8 +43,14 @@ public:
 	static void CheckHitWeaponRightToBossEnemy(Weapon& weapon, BossEnemy& enemy);
 	// プレイヤーとボスの当たり判定
 	static void CheckHitPlayerToBossEnemy(Player& player, BossEnemy& enemy);
-	// プレイヤーとボスの武器の当たり判定
-	static void CheckHitPlayerToBossEnemyWeapon(Player& player, BossEnemyWeapon& weapon);
+	// プレイヤーとボスの武器（上方向）の当たり判定
+	static void CheckHitPlayerToBossEnemyWeaponUp(Player& player, BossEnemyWeapon& weapon);
+	// プレイヤーとボスの武器（下方向）の当たり判定
+	static void CheckHitPlayerToBossEnemyWeaponDown(Player& player, BossEnemyWeapon& weapon);
+	// プレイヤーとボスの武器（左方向）の当たり判定
+	static void CheckHitPlayerToBossEnemyWeaponLeft(Player& player, BossEnemyWeapon& weapon);
+	// プレイヤーとボスの武器（右方向）の当たり判定
+	static void CheckHitPlayerToBossEnemyWeaponRight(Player& player, BossEnemyWeapon& weapon);
 };
 
 

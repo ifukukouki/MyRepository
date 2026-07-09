@@ -10,6 +10,7 @@ typedef struct {
 	VECTOR m_pos;
 	VECTOR m_dir;
 	bool m_isActive;
+	int m_hp;
 
 }BIGENEMY_DATA;
 

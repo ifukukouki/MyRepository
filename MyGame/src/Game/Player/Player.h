@@ -31,14 +31,8 @@ public:
 	int GetPosY() { return m_pos.y; }
 	VECTOR GetPos() { return m_pos; }
 
-	// プレイヤーの生存情報を取得
-	bool isActive() { return m_isActive; }
-
 	// 当たり判定用の半径を取得
 	float GetRadius() { return m_radius; }
-
-	// プレイヤーの体力取得
-	int GetHp() { return m_hp; }
 
 	// 移動後の座標を設定
 	void SetNextPosX(int _posX);
@@ -58,9 +52,7 @@ public:
 
 private:
 	VECTOR m_pos;		// 座標
-	bool m_isActive;	// 生存フラグ
 	float m_radius;		// 半径
-	int m_hp;			// 体力
 
 	// 移動後の座標
 	int m_nextPosX;
@@ -101,6 +93,11 @@ private:
 	float angle;
 	// 現在のアニメ取得用
 	int anime;
+
+public:
+	int m_hp;			// 体力
+	bool m_isActive;	// 生存フラグ
+
 };
 
 

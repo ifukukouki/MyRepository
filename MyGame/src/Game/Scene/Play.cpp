@@ -6,6 +6,7 @@
 #include "../HitCheck/HitCheck.h"
 #include "../../Lib/effect.h"
 #include "../../Lib/input.h"
+#include "../../Lib/score.h"
 
 
 //--------------------------------
@@ -61,6 +62,14 @@ int Play::Loop()
 
 	case Play::MAIN:
 		Step();
+		// プレイヤーが死んだら
+		if (m_player.m_isActive == false)
+		{
+			// フェードアウト開始
+			RequestFadeOut();
+
+			m_state = Play::ENDWAIT;	// 次へ進む
+		}
 		// ボスが倒されたら
 		if (m_bossEnemy.m_isClear == true)
 		{
@@ -116,6 +125,7 @@ void Play::Draw()
 	m_bossEnemy.Draw();
 	m_bossEnemyWeapon.Draw();
 	Effect::DrawExplosion();
+	Score::Draw();
 }
 
 
@@ -132,6 +142,7 @@ void Play::Init()
 	m_bossEnemy.Init();
 	m_bossEnemyWeapon.Init();
 	Effect::InitExplosion();
+	Score::Init();
 }
 
 
@@ -148,6 +159,7 @@ void Play::Load()
 	m_bossEnemy.Load();
 	m_bossEnemyWeapon.Load();
 	Effect::LoadExplosion();
+	Score::Load();
 }
 
 
@@ -182,8 +194,8 @@ void Play::Step()
 		m_bossEnemyWeapon.RightShot(i);
 	}
 
-
 	Effect::StepExplosion();
+	Score::Update();
 
 	// 当たり判定==============================
 	HitCheck::CheckHitWeaponUpToEnemy(m_weapon, m_enemy);
@@ -191,17 +203,22 @@ void Play::Step()
 	HitCheck::CheckHitWeaponLeftToEnemy(m_weapon, m_enemy);
 	HitCheck::CheckHitWeaponRightToEnemy(m_weapon, m_enemy);
 	HitCheck::CheckHitPlayerToEnemy(m_player, m_enemy);
+
 	HitCheck::CheckHitWeaponUpToBigEnemy(m_weapon, m_bigEnemy);
 	HitCheck::CheckHitWeaponDownToBigEnemy(m_weapon, m_bigEnemy);
 	HitCheck::CheckHitWeaponLeftToBigEnemy(m_weapon, m_bigEnemy);
 	HitCheck::CheckHitWeaponRightToBigEnemy(m_weapon, m_bigEnemy);
 	HitCheck::CheckHitPlayerToBigEnemy(m_player, m_bigEnemy);
+
 	HitCheck::CheckHitWeaponUpToBossEnemy(m_weapon, m_bossEnemy);
 	HitCheck::CheckHitWeaponDownToBossEnemy(m_weapon, m_bossEnemy);
 	HitCheck::CheckHitWeaponLeftToBossEnemy(m_weapon, m_bossEnemy);
 	HitCheck::CheckHitWeaponRightToBossEnemy(m_weapon, m_bossEnemy);
 	HitCheck::CheckHitPlayerToBossEnemy(m_player, m_bossEnemy);
-	HitCheck::CheckHitPlayerToBossEnemyWeapon(m_player, m_bossEnemyWeapon);
+	HitCheck::CheckHitPlayerToBossEnemyWeaponUp(m_player, m_bossEnemyWeapon);
+	HitCheck::CheckHitPlayerToBossEnemyWeaponDown(m_player, m_bossEnemyWeapon);
+	HitCheck::CheckHitPlayerToBossEnemyWeaponLeft(m_player, m_bossEnemyWeapon);
+	HitCheck::CheckHitPlayerToBossEnemyWeaponRight(m_player, m_bossEnemyWeapon);
 
 	//=========================================
 }
@@ -220,6 +237,7 @@ void Play::Exit()
 	m_bossEnemy.Exit();
 	m_bossEnemyWeapon.Exit();
 	Effect::ExitExplosion();
+	//Score::Exit();	// リザルトシーンでも表示させたいのでExitはまだ実行しない
 }
 
 

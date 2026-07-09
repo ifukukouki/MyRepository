@@ -1,6 +1,5 @@
 
 #include "Enemy.h"
-#include "../../Lib/input.h"
 
 
 #define SCREEN_SIZE_X (1280.0f)

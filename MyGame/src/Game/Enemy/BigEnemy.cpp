@@ -1,16 +1,16 @@
 
 #include "BigEnemy.h"
-#include "../../Lib/input.h"
 
 
 #define SCREEN_SIZE_X (1280.0f)
 #define SCREEN_SIZE_Y (640.0f)
 #define BIGENEMY_IMG_PATH	"data/Enemy/character_monster_ghost_black.png"	// 敵画像のファイルパス
-#define BIGENEMY_SPEED (0.5f)	// 敵の移動速度
+#define BIGENEMY_SPEED (0.4f)	// 敵の移動速度
 #define WAIT_COUNT (300)		// 敵再出現までにかかる時間（１秒＝６０フレーム）
 
 
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
+static const int HP = 5;
 
 
 BigEnemy::BigEnemy() :m_hndl(-1), m_waitCount(0), m_requestFlg(0), m_enemy()
@@ -31,6 +31,7 @@ void BigEnemy::Init()
 		m_enemy[i].m_pos = ZERO;
 		m_enemy[i].m_dir = ZERO;
 		m_enemy[i].m_isActive = false;
+		m_enemy[i].m_hp = HP;
 	}
 }
 
@@ -100,10 +101,10 @@ void BigEnemy::Draw()
 	{
 		if (m_enemy[i].m_isActive == true)
 		{
-			DrawRotaGraph(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 0.05, 0.0, m_hndl, true);
+			DrawRotaGraph(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 0.07, 0.0, m_hndl, true);
 
 			// 当たり判定表示
-			//DrawCircle(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 28, GetColor(255, 0, 0), false);
+			//DrawCircle(m_enemy[i].m_pos.x, m_enemy[i].m_pos.y, 20, GetColor(255, 0, 0), false);
 		}
 	}
 }
@@ -136,6 +137,7 @@ bool BigEnemy::Request1()
 			m_enemy[i].m_isActive = true;
 			m_enemy[i].m_pos.x = (float)GetRand(1280) - 0.0f;
 			m_enemy[i].m_pos.y = 10.0f;
+			m_enemy[i].m_hp = HP;
 
 			m_waitCount = WAIT_COUNT;
 			// 敵の出現場所を変更する(0にならないように+1をする)
@@ -160,6 +162,7 @@ bool BigEnemy::Request2()
 			m_enemy[i].m_isActive = true;
 			m_enemy[i].m_pos.x = (float)GetRand(1280) - 0.0f;
 			m_enemy[i].m_pos.y = 630.0f;
+			m_enemy[i].m_hp = HP;
 
 			m_waitCount = WAIT_COUNT;
 			// 敵の出現場所を変更する(0にならないように+1をする)
@@ -184,6 +187,7 @@ bool BigEnemy::Request3()
 			m_enemy[i].m_isActive = true;
 			m_enemy[i].m_pos.x = 10.0f;
 			m_enemy[i].m_pos.y = (float)GetRand(640) - 0.0f;
+			m_enemy[i].m_hp = HP;
 
 			m_waitCount = WAIT_COUNT;
 			// 敵の出現場所を変更する(0にならないように+1をする)
@@ -208,6 +212,7 @@ bool BigEnemy::Request4()
 			m_enemy[i].m_isActive = true;
 			m_enemy[i].m_pos.x = 1270.0f;
 			m_enemy[i].m_pos.y = (float)GetRand(640) - 0.0f;
+			m_enemy[i].m_hp = HP;
 
 			m_waitCount = WAIT_COUNT;
 			// 敵の出現場所を変更する(0にならないように+1をする)

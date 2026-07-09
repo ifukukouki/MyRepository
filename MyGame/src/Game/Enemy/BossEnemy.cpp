@@ -1,6 +1,5 @@
 
 #include "BossEnemy.h"
-#include "../../Lib/input.h"
 
 
 #define SCREEN_SIZE_X (1280.0f)
@@ -11,7 +10,7 @@
 
 
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
-static const int HP = 10;
+static const int HP = 50;
 
 
 // staticメンバ変数はここで書く作業が必須！！------

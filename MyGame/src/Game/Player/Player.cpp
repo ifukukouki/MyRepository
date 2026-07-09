@@ -40,12 +40,12 @@
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };
 static const VECTOR START_POS{ SCREEN_SIZE_X / 2, SCREEN_SIZE_Y / 2, 0.0f };
 static const float PLAYER_RADIUS = 1.0f;
-static const int HP = 3;
+static const int HP = 10;
 
 
 Player::Player() :m_pos(ZERO), m_nextPosX(0), m_nextPosY(0), animeImgHundle(), animeUsedNum(), 
 					currentAnimeKind(), currentAnimeIndex(0), currentAnimeTime(0.0f), angle(0.0f),
-					anime(0), m_isActive(true), m_radius(0.0f), m_hp(0)
+					anime(0), m_isActive(false), m_radius(0.0f), m_hp(0)
 {
 }
 Player::~Player()
@@ -56,6 +56,7 @@ Player::~Player()
 void Player::Init()
 {
 	m_pos = START_POS;
+	m_isActive = true;
 	m_radius = PLAYER_RADIUS;
 	m_hp = HP;
 
@@ -283,6 +284,9 @@ void Player::Exit()
 			DeleteGraph(animeImgHundle[anime_kind_index][image_index]);
 		}
 	}
+
+	m_hp = HP;
+	m_isActive = true;
 }
 
 

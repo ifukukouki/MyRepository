@@ -155,6 +155,7 @@
     <ClCompile Include="src\Lib\effect.cpp" />
     <ClCompile Include="src\Lib\fade.cpp" />
     <ClCompile Include="src\Lib\input.cpp" />
+    <ClCompile Include="src\Lib\score.cpp" />
     <ClCompile Include="src\Lib\Sound.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
@@ -175,6 +176,7 @@
     <ClInclude Include="src\Lib\effect.h" />
     <ClInclude Include="src\Lib\fade.h" />
     <ClInclude Include="src\Lib\input.h" />
+    <ClInclude Include="src\Lib\score.h" />
     <ClInclude Include="src\Lib\Sound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

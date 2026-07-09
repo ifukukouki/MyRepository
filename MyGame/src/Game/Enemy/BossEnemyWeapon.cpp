@@ -1,13 +1,12 @@
 
 #include "BossEnemyWeapon.h"
-#include "../../Lib/input.h"
 
 
 #define SCREEN_SIZE_X (1280.0f)
 #define SCREEN_SIZE_Y (640.0f)
-#define BOSSENEMY_WEAPON_SPEED (2.0f)	// 武器の移動速度
+#define BOSSENEMY_WEAPON_SPEED (1.0f)	// 武器の移動速度
 #define BOSSENEMY_WEAPON_IMG_PATH	"data/Enemy/crystal_sphere_red.png"	// 武器画像のファイルパス
-#define WAIT_COUNT (240)	// 弾発射までにかかる時間（１秒＝６０フレーム）
+#define WAIT_COUNT (300)	// 弾発射までにかかる時間（１秒＝６０フレーム）
 
 
 static const VECTOR ZERO{ 0.0f, 0.0f, 0.0f };

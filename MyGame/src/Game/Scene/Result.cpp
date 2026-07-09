@@ -3,6 +3,7 @@
 #include "../../Lib/fade.h"
 #include "../../Lib/Sound.h"
 #include "../../Lib/input.h"
+#include "../../Lib/score.h"
 
 
 //--------------------------------
@@ -82,6 +83,8 @@ int Result::Loop()
 			m_hndl = -1;
 		}
 
+		Score::Exit();	// ここでスコアを破棄する
+
 		m_state = Result::INIT;	// 次へ進む
 		result = 0;	// ゲームが終わったことを知らせる
 		break;
@@ -104,6 +107,7 @@ void Result::Draw()
 	case Result::ENDWAIT:
 		DrawRotaGraph(1280 / 2, 720 / 2, 1.0, 0.0, m_hndl, TRUE);
 		DrawFormatString(585, 480, GetColor(255, 255, 255), "Press 'Enter'");
+		Score::Draw();
 		//DrawFormatString(0, 0, GetColor(255, 255, 255), "リザルト");
 		break;
 	}
